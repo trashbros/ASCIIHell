@@ -1,4 +1,7 @@
 # ASCIIHell
+[![Build Status](https://api.travis-ci.com/trashbros/ASCIIHell.svg?branch=master)](https://travis-ci.com/trashbros/ASCIIHell)
+[![unity version](https://img.shields.io/badge/unity%20version-2018.4.14f1-green.svg)]()
+
 ASCII Art Bullet Hell
 
 ## Specifics
