@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using UnityEngine;
 
 public class FrameRenderer : MonoBehaviour
@@ -47,6 +48,26 @@ public class FrameRenderer : MonoBehaviour
 
             byte[] imgBytes = t2d.GetRawTextureData();//.EncodeToJPG();
 
+
+            // If we should write the file
+            if (writefile)
+            {
+
+                char[] ascii_colors = new char[] { ' ', '.', ':', '}', 'v', '0', 'q', 'M' };
+                string ascii_file = Application.dataPath + @"/../" + @"ascii_output.txt";
+                StringBuilder sb = new StringBuilder();
+                for (int y = t2d.height; y >= 0; y--)
+                {
+                    for (int x = 0; x < t2d.width; x++)
+                    {
+                        var pixel = t2d.GetPixel(x, y);
+                        int color = (int)(((pixel.r + pixel.g + pixel.b) / 3) * 8);
+                        sb.Append(ascii_colors[color]);
+                    }
+                    sb.Append('\n');
+                }
+                File.WriteAllText(ascii_file, sb.ToString());
+            }
 
             // Test line to write to file
             if (writefile)

@@ -289,8 +289,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88898670b635c7045b33b6b9839a2894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionWidth: 480
-  resolutionHeight: 640
+  resolutionWidth: 80
+  resolutionHeight: 25
   m_Camera: {fileID: 856668555}
   writefile: 1
 --- !u!1 &1328359533
