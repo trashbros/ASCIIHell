@@ -13,12 +13,18 @@ public class FrameRenderer : MonoBehaviour
     private Rect rect;
 
     [SerializeField]private Camera m_Camera;
+    [SerializeField]private UnityEngine.UI.Text m_text;
 
     public bool writefile = true;
 
     // Start is called before the first frame update
     void Start()
     {
+        if(m_text == null)
+        {
+            return;
+        }
+
         if(m_Camera == null)
         {
             this.GetComponent<Camera>();
@@ -66,6 +72,8 @@ public class FrameRenderer : MonoBehaviour
                     }
                     sb.Append('\n');
                 }
+                m_text.text = sb.ToString();
+                //Debug.Log("Text is: " + sb.ToString());
                 File.WriteAllText(ascii_file, sb.ToString());
             }
 
@@ -73,7 +81,7 @@ public class FrameRenderer : MonoBehaviour
             if (writefile)
             {
                 string temp = Application.dataPath + @"/../" + @"cam_output.jpg";
-                Debug.Log("Writing camera frame to: " + temp);
+                //Debug.Log("Writing camera frame to: " + temp);
                 File.WriteAllBytes(temp, texture2D.EncodeToJPG());
             }
 

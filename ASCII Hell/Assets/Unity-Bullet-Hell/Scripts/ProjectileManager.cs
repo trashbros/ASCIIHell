@@ -338,7 +338,7 @@ namespace BulletHell
 
         void OnGUI()
         {
-            GUI.Label(new Rect(5, 5, 300, 20), "Projectiles: " + ProjectileTypeCounters[0].ActiveProjectiles.ToString());
+            //GUI.Label(new Rect(5, 5, 300, 20), "Projectiles: " + ProjectileTypeCounters[0].ActiveProjectiles.ToString());
         }
 
         void OnApplicationQuit()
