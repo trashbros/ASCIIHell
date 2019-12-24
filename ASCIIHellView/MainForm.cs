@@ -34,7 +34,11 @@ namespace ASCIIHellView
 
         private void UpdateAscii(string asciiText)
         {
-            Invoke((Action)(() => { TextAcii.Text = asciiText.Replace("\n", "\r\n"); }));
+            Invoke((Action)(() => {
+                TextAscii.SuspendLayout();
+                TextAscii.Text = asciiText.Replace("\n", "\r\n");
+                TextAscii.ResumeLayout();
+            }));
         }
 
         private async void StartReceiving()
