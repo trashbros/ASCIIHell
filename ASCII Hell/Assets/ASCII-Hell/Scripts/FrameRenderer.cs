@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Sockets;
 using System.Text;
 using UnityEngine;
 
@@ -16,6 +18,7 @@ public class FrameRenderer : MonoBehaviour
     [SerializeField]private UnityEngine.UI.Text m_text;
 
     public bool writefile = true;
+    public bool writeUDP = true;
 
     // Start is called before the first frame update
     void Start()
@@ -54,26 +57,39 @@ public class FrameRenderer : MonoBehaviour
 
             byte[] imgBytes = t2d.GetRawTextureData();//.EncodeToJPG();
 
+            char[] ascii_colors = new char[] { ' ', '.', ':', '}', 'v', '0', 'q', 'M' };
+            string ascii_file = Application.dataPath + @"/../" + @"ascii_output.txt";
+            StringBuilder sb = new StringBuilder();
+            for (int y = t2d.height; y >= 0; y--)
+            {
+                for (int x = 0; x < t2d.width; x++)
+                {
+                    var pixel = t2d.GetPixel(x, y);
+                    int color = (int)(pixel.grayscale * (ascii_colors.Length - 1));
+                    sb.Append(ascii_colors[color]);
+                }
+                sb.Append('\n');
+            }
+            m_text.text = sb.ToString();
+
+            if (writeUDP)
+            {
+                byte[] datagram = Encoding.ASCII.GetBytes(sb.ToString());
+                UdpClient udpClient = new UdpClient("127.0.0.1", 23456);
+                try
+                {
+                    udpClient.Send(datagram, datagram.Length);
+                }
+                catch (Exception e)
+                {
+                    Debug.Log("Error sending UDP datagram");
+                    Debug.Log(e);
+                }
+            }
 
             // If we should write the file
             if (writefile)
             {
-
-                char[] ascii_colors = new char[] { ' ', '.', ':', '}', 'v', '0', 'q', 'M' };
-                string ascii_file = Application.dataPath + @"/../" + @"ascii_output.txt";
-                StringBuilder sb = new StringBuilder();
-                for (int y = t2d.height; y >= 0; y--)
-                {
-                    for (int x = 0; x < t2d.width; x++)
-                    {
-                        var pixel = t2d.GetPixel(x, y);
-                        int color = (int)(pixel.grayscale * (ascii_colors.Length - 1));
-                        sb.Append(ascii_colors[color]);
-                    }
-                    sb.Append('\n');
-                }
-                m_text.text = sb.ToString();
-                //Debug.Log("Text is: " + sb.ToString());
                 File.WriteAllText(ascii_file, sb.ToString());
             }
 

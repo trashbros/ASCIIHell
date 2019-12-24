@@ -436,7 +436,8 @@ MonoBehaviour:
   resolutionHeight: 64
   m_Camera: {fileID: 856668555}
   m_text: {fileID: 660452476}
-  writefile: 1
+  writefile: 0
+  writeUDP: 1
 --- !u!1 &1328359533
 GameObject:
   m_ObjectHideFlags: 0
