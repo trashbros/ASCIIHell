@@ -67,7 +67,7 @@ public class FrameRenderer : MonoBehaviour
                     for (int x = 0; x < t2d.width; x++)
                     {
                         var pixel = t2d.GetPixel(x, y);
-                        int color = (int)(((pixel.r + pixel.g + pixel.b) / 3) * 8);
+                        int color = (int)(pixel.grayscale * (ascii_colors.Length - 1));
                         sb.Append(ascii_colors[color]);
                     }
                     sb.Append('\n');

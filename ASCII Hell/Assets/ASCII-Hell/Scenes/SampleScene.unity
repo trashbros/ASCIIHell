@@ -432,7 +432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88898670b635c7045b33b6b9839a2894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionWidth: 48
+  resolutionWidth: 96
   resolutionHeight: 64
   m_Camera: {fileID: 856668555}
   m_text: {fileID: 660452476}
@@ -772,7 +772,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1594654679
 Transform:
   m_ObjectHideFlags: 0
