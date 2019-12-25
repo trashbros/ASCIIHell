@@ -57,7 +57,11 @@ public class FrameRenderer : MonoBehaviour
 
             byte[] imgBytes = t2d.GetRawTextureData();//.EncodeToJPG();
 
-            char[] ascii_colors = new char[] { ' ', '.', ':', '}', 'v', '0', 'q', 'M' };
+            char[] ascii_colors_r = " `.'~;)]j50%GX#W".ToCharArray();
+            char[] ascii_colors_g = " `.-_|}iv&V8DmHW".ToCharArray();
+            char[] ascii_colors_b = " `.,!{([t3y$qQNW".ToCharArray();
+            char[] ascii_colors_y = " `.^:/=?ceuOgK@M".ToCharArray();
+
             string ascii_file = Application.dataPath + @"/../" + @"ascii_output.txt";
             StringBuilder sb = new StringBuilder();
             for (int y = t2d.height; y >= 0; y--)
@@ -65,8 +69,24 @@ public class FrameRenderer : MonoBehaviour
                 for (int x = 0; x < t2d.width; x++)
                 {
                     var pixel = t2d.GetPixel(x, y);
-                    int color = (int)(pixel.grayscale * (ascii_colors.Length - 1));
-                    sb.Append(ascii_colors[color]);
+
+                    int color = 0;
+
+                    if (pixel.maxColorComponent == pixel.r)
+                    {
+                        color = (int)(pixel.r * (ascii_colors_r.Length - 1));
+                        sb.Append(ascii_colors_r[color]);
+                    }
+                    else if (pixel.maxColorComponent == pixel.g)
+                    {
+                        color = (int)(pixel.g * (ascii_colors_g.Length - 1));
+                        sb.Append(ascii_colors_g[color]);
+                    }
+                    else if (pixel.maxColorComponent == pixel.b)
+                    {
+                        color = (int)(pixel.b * (ascii_colors_b.Length - 1));
+                        sb.Append(ascii_colors_b[color]);
+                    }
                 }
                 sb.Append('\n');
             }
