@@ -129,8 +129,10 @@ public class PlayerController : MonoBehaviour
         return moveDir.normalized;
     }
 
-    private void OnParticleCollision(GameObject other)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        CustomEvents.EventUtil.DispatchEvent(CustomEventList.PLAYER_DIED);
+        //if(collision.)
+        //Debug.Log("Hit by particle");
+        //CustomEvents.EventUtil.DispatchEvent(CustomEventList.PLAYER_DIED);
     }
 }

@@ -182,6 +182,8 @@ namespace BulletHell
                         if (result > 0)
                         {
                             // Put whatever hit code you want here such as damage events
+                            ProjectileHitEvent(RaycastHitBuffer);
+                            
 
                             // Collision was detected, should we bounce off or destroy the projectile?
                             if (BounceOffSurfaces)
@@ -240,6 +242,8 @@ namespace BulletHell
                 }
             }
         }
+
+        public abstract void ProjectileHitEvent(RaycastHit2D[] RaycastHitBuffer);
 
     }
 }

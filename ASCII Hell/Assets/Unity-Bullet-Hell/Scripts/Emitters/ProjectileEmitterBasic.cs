@@ -26,6 +26,18 @@ namespace BulletHell
             Direction = Rotate(Direction, RotationSpeed);
         }
 
+        public override void ProjectileHitEvent(RaycastHit2D[] RaycastHitBuffer)
+        {
+            foreach (var rayhit in RaycastHitBuffer)
+            {
+                if (rayhit.collider.gameObject.GetComponent<PlayerController>() != null)
+                {
+                    Debug.Log("Hit by particle");
+                    CustomEvents.EventUtil.DispatchEvent(CustomEventList.PLAYER_DIED);
+                }
+            }
+        }
+
         public new void UpdateEmitter()
         {
             base.UpdateEmitter();
