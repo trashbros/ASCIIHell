@@ -39,7 +39,7 @@ public class GameplayManager : MonoBehaviour
     {
         if (InputContainer.instance.cancel.pressed)
         {
-            if (GameRunning)
+            if (GameRunning && currentState != GameState.Paused)
             {
                 currentState = GameState.Paused;
                 SetGameState();

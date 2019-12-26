@@ -81,7 +81,7 @@ public class InputHandler : MonoBehaviour
         InputContainer.instance.confirm.down = Input.GetButton(confirmButton);
         InputContainer.instance.cancel.down = Input.GetButton(cancelButton);
 
-        InputContainer.instance.menuOpen.down = Input.GetButton(menuButton);
+        //InputContainer.instance.menuOpen.down = Input.GetButton(menuButton);
 
         //converts axis input into button input for menus
         InputContainer.instance.menuUp.down = Input.GetAxisRaw("Vertical") > (0.5f);
