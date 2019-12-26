@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Attach this with a rigidbody and collider to your character
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, ICollidable
 {
     public static PlayerController instance;
 
@@ -14,9 +14,6 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rigidbody2d;
     //Collider2D collider;
     SpriteRenderer sprite;
-
-    // Define with unity player input button to use for object interaction
-    public string interactButton = "Jump";
 
     // Define the layer your interactable colliders are on
     public LayerMask interactMask;
@@ -46,9 +43,9 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (Input.GetButtonDown(interactButton))
+        if (InputContainer.instance.fire.down || InputContainer.instance.fire.pressed)
         {
-
+            // Fire at opponents
         }
 
         // Get your up/down/left/right player input
@@ -66,38 +63,6 @@ public class PlayerController : MonoBehaviour
         rigidbody2d.MovePosition(position);
     }
 
-    public void SetHorizontalAxis(float value)
-    {
-        m_horizontal = value;
-    }
-
-    public void SetVerticalAxis(float value)
-    {
-        m_vertical = value;
-    }
-
-    private float GetHorizontalAxis()
-    {
-        if (m_horizontal == 0.0f)
-        {
-            return Input.GetAxis("Horizontal");
-        }
-        else
-        {
-            return m_horizontal;
-        }
-    }
-    private float GetVerticalAxis()
-    {
-        if (m_vertical == 0.0f)
-        {
-            return Input.GetAxis("Vertical");
-        }
-        else
-        {
-            return m_vertical;
-        }
-    }
 
     private Vector2 GetMovement()
     {
@@ -129,10 +94,9 @@ public class PlayerController : MonoBehaviour
         return moveDir.normalized;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void OnHit(GameObject collision)
     {
-        //if(collision.)
-        //Debug.Log("Hit by particle");
-        //CustomEvents.EventUtil.DispatchEvent(CustomEventList.PLAYER_DIED);
+        Debug.Log("Hit by particle");
+        CustomEvents.EventUtil.DispatchEvent(CustomEventList.PLAYER_DIED);
     }
 }

@@ -55,10 +55,10 @@ namespace BulletHell
         {
             foreach (var rayhit in RaycastHitBuffer)
             {
-                if (rayhit.collider.gameObject.GetComponent<PlayerController>() != null)
+                var coll = rayhit.collider.gameObject.GetComponent<ICollidable>();
+                if (coll != null)
                 {
-                    Debug.Log("Hit by particle");
-                    CustomEvents.EventUtil.DispatchEvent(CustomEventList.PLAYER_DIED);
+                    coll.OnHit(this.gameObject);
                 }
             }
         }

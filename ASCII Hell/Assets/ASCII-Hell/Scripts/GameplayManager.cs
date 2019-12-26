@@ -88,8 +88,6 @@ public class GameplayManager : MonoBehaviour
         {
             return;
         }
-        print(evt.type);
-        print(evt.args);
         // Destroy current level
         currentState = GameState.GameOver;
         SetGameState();

@@ -561,12 +561,12 @@ MonoBehaviour:
   downButtonUDP: dD
   leftButtonUDP: lL
   rightButtonUDP: rR
-  fireButtonUDP: ' '
+  fireButtonUDP: fF
+  dashButtonUDP: mM
   confirmButton: Submit
   cancelButton: Cancel
-  interactButton: Jump
-  sprintButton: Fire3
-  menuButton: Menu
+  fireButton: Jump
+  dashButton: Fire3
 --- !u!1 &1404864997
 GameObject:
   m_ObjectHideFlags: 0
