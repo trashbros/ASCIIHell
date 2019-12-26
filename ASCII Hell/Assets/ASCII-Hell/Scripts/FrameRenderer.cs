@@ -68,7 +68,6 @@ public class FrameRenderer : MonoBehaviour
             char[] ascii_colors_b = " `.,!{([t3y$qQNW".ToCharArray();
             char[] ascii_colors_y = " `.^:/=?ceuOgK@M".ToCharArray();
 
-            string ascii_file = Application.dataPath + @"/../" + @"ascii_output.txt";
             StringBuilder sb = new StringBuilder();
             for (int y = t2d.height; y >= 0; y--)
             {
@@ -76,22 +75,23 @@ public class FrameRenderer : MonoBehaviour
                 {
                     var pixel = t2d.GetPixel(x, y);
 
-                    int color = 0;
+                    int color = (int)(pixel.grayscale * (ascii_colors_r.Length - 1));
 
-                    if (pixel.maxColorComponent == pixel.r)
+                    if (pixel.r > pixel.g && pixel.r > pixel.b)
                     {
-                        color = (int)(pixel.r * (ascii_colors_r.Length - 1));
                         sb.Append(ascii_colors_r[color]);
                     }
-                    else if (pixel.maxColorComponent == pixel.g)
+                    else if (pixel.g > pixel.r && pixel.g > pixel.b)
                     {
-                        color = (int)(pixel.g * (ascii_colors_g.Length - 1));
                         sb.Append(ascii_colors_g[color]);
                     }
-                    else if (pixel.maxColorComponent == pixel.b)
+                    else if (pixel.b > pixel.r && pixel.b > pixel.g)
                     {
-                        color = (int)(pixel.b * (ascii_colors_b.Length - 1));
                         sb.Append(ascii_colors_b[color]);
+                    }
+                    else
+                    {
+                        sb.Append(ascii_colors_y[color]);
                     }
                 }
                 sb.Append('\n');
@@ -106,6 +106,7 @@ public class FrameRenderer : MonoBehaviour
             // If we should write the file
             if (writefile)
             {
+                string ascii_file = Application.dataPath + @"/../" + @"ascii_output.txt";
                 File.WriteAllText(ascii_file, sb.ToString());
             }
 
