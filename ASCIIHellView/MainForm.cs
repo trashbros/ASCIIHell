@@ -91,6 +91,14 @@ namespace ASCIIHellView
             {
                 datagram = Encoding.ASCII.GetBytes("R");
             }
+            else if (e.KeyCode == Keys.E)
+            {
+                datagram = Encoding.ASCII.GetBytes("E");
+            }
+            else if (e.KeyCode == Keys.Q)
+            {
+                datagram = Encoding.ASCII.GetBytes("Q");
+            }
 
             if (datagram.Length > 0)
             {
