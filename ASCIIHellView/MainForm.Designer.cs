@@ -67,7 +67,7 @@
             this.BtnStop.UseVisualStyleBackColor = true;
             this.BtnStop.Click += new System.EventHandler(this.BtnStop_Click);
             // 
-            // TextAcii
+            // TextAscii
             // 
             this.TextAscii.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.TextAscii.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -75,11 +75,13 @@
             this.TextAscii.ForeColor = System.Drawing.Color.Silver;
             this.TextAscii.Location = new System.Drawing.Point(0, 29);
             this.TextAscii.Multiline = true;
-            this.TextAscii.Name = "TextAcii";
-            this.TextAscii.ReadOnly = true;
+            this.TextAscii.Name = "TextAscii";
             this.TextAscii.Size = new System.Drawing.Size(1069, 788);
             this.TextAscii.TabIndex = 2;
             this.TextAscii.WordWrap = false;
+            this.TextAscii.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextAscii_KeyDown);
+            this.TextAscii.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextAscii_KeyPress);
+            this.TextAscii.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextAscii_KeyUp);
             // 
             // MainForm
             // 

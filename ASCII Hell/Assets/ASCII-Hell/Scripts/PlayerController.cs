@@ -24,6 +24,9 @@ public class PlayerController : MonoBehaviour
     // Defined by the DialogueUI script while dialogue is running
     public bool inDialogue = false;
 
+    private float m_horizontal = 0.0f;
+    private float m_vertical = 0.0f;
+
     protected void Start()
     {
         // Get the components attached to your character. Animator commented out for still sprite testing
@@ -48,8 +51,8 @@ public class PlayerController : MonoBehaviour
         }
 
         // Get your up/down/left/right player input
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        float horizontal = GetHorizontalAxis();
+        float vertical = GetVerticalAxis();
 
         // Movement direction and rate is your horizontal and vertical input values (good for joystick or arrow buttons)
         Vector2 move = new Vector2(horizontal, vertical);
@@ -64,5 +67,36 @@ public class PlayerController : MonoBehaviour
         rigidbody2d.MovePosition(position);
     }
 
+    public void SetHorizontalAxis(float value)
+    {
+        m_horizontal = value;
+    }
 
+    public void SetVerticalAxis(float value)
+    {
+        m_vertical = value;
+    }
+
+    private float GetHorizontalAxis()
+    {
+        if (m_horizontal == 0.0f)
+        {
+            return Input.GetAxis("Horizontal");
+        }
+        else
+        {
+            return m_horizontal;
+        }
+    }
+    private float GetVerticalAxis()
+    {
+        if (m_vertical == 0.0f)
+        {
+            return Input.GetAxis("Vertical");
+        }
+        else
+        {
+            return m_vertical;
+        }
+    }
 }

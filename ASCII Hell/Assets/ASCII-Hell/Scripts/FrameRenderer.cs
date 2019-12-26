@@ -16,6 +16,7 @@ public class FrameRenderer : MonoBehaviour
 
     [SerializeField]private Camera m_Camera;
     [SerializeField]private UnityEngine.UI.Text m_text;
+    [SerializeField]private UdpController m_udpController;
 
     public bool writefile = true;
     public bool writeUDP = true;
@@ -31,6 +32,11 @@ public class FrameRenderer : MonoBehaviour
         if(m_Camera == null)
         {
             this.GetComponent<Camera>();
+        }
+        
+        if (m_udpController == null)
+        {
+            this.GetComponent<UdpController>();
         }
 
         texture2D = new Texture2D(resolutionWidth, resolutionHeight, TextureFormat.RGB24, false);
@@ -94,17 +100,7 @@ public class FrameRenderer : MonoBehaviour
 
             if (writeUDP)
             {
-                byte[] datagram = Encoding.ASCII.GetBytes(sb.ToString());
-                UdpClient udpClient = new UdpClient("127.0.0.1", 23456);
-                try
-                {
-                    udpClient.Send(datagram, datagram.Length);
-                }
-                catch (Exception e)
-                {
-                    Debug.Log("Error sending UDP datagram");
-                    Debug.Log(e);
-                }
+                m_udpController.SendFrame(sb.ToString());
             }
 
             // If we should write the file
