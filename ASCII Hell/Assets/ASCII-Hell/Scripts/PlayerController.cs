@@ -52,11 +52,9 @@ public class PlayerController : MonoBehaviour
         }
 
         // Get your up/down/left/right player input
-        float horizontal = GetHorizontalAxis();
-        float vertical = GetVerticalAxis();
+        Vector2 move = GetMovement();
 
-        // Movement direction and rate is your horizontal and vertical input values (good for joystick or arrow buttons)
-        Vector2 move = new Vector2(horizontal, vertical);
+
 
         // Get your current position
         Vector2 position = rigidbody2d.position;
@@ -99,6 +97,36 @@ public class PlayerController : MonoBehaviour
         {
             return m_vertical;
         }
+    }
+
+    private Vector2 GetMovement()
+    {
+        if (!InputContainer.instance.udpButtons)
+        {
+            return InputContainer.instance.moveDir;
+        }
+
+        Vector2 moveDir = new Vector2(0, 0);
+
+        if (InputContainer.instance.menuRight.pressed)
+        {
+            moveDir.x = 1;
+        }
+        else if(InputContainer.instance.menuLeft.pressed)
+        {
+            moveDir.x = -1;
+        }
+
+        if (InputContainer.instance.menuUp.pressed)
+        {
+            moveDir.y = 1;
+        }
+        else if (InputContainer.instance.menuDown.pressed)
+        {
+            moveDir.y = -1;
+        }
+
+        return moveDir.normalized;
     }
 
     private void OnParticleCollision(GameObject other)

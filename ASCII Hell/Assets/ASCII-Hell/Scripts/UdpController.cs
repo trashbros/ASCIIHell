@@ -13,14 +13,14 @@ public class UdpController : MonoBehaviour
     private UdpClient udpRx;
     private IPEndPoint ipEndPoint;
 
-    public PlayerController playerController;
+    public InputHandler inputController;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (playerController == null)
+        if (inputController == null)
         {
-            playerController = GetComponent<PlayerController>();
+            inputController = GetComponent<InputHandler>();
         }
 
         udpTx = new UdpClient("127.0.0.1", 23456);
@@ -58,44 +58,44 @@ public class UdpController : MonoBehaviour
                 {
                     var datagram = await Task.Run<byte[]>(() => udpRx.Receive(ref ipEndpoint));
                     string cmd = Encoding.ASCII.GetString(datagram);
-                    switch (cmd)
-                    {
-                        case "U":
-                            playerController.SetVerticalAxis(1.0f);
-                            break;
 
-                        case "u":
-                            playerController.SetVerticalAxis(0.0f);
-                            break;
+                    inputController.SetInputs(cmd);
 
-                        case "D":
-                            playerController.SetVerticalAxis(-1.0f);
-                            break;
+                    //switch (cmd)
+                    //{
+                    //    case "U":
+                    //    case "u":
+                    //        //playerController.SetVerticalAxis(1.0f);
+                    //        InputContainer.instance.moveDir = new Vector2(0f, 1f);
+                    //        break;
 
-                        case "d":
-                            playerController.SetVerticalAxis(0.0f);
-                            break;
+                    //    case "D":
+                    //    case "d":
+                    //        //playerController.SetVerticalAxis(-1.0f);
+                    //        InputContainer.instance.moveDir = new Vector2(0f, -1f);
+                    //        break;
 
-                        case "L":
-                            playerController.SetHorizontalAxis(-1.0f);
-                            break;
+                    //    case "L":
+                    //    case "l":
+                    //        //playerController.SetHorizontalAxis(-1.0f);
+                    //        InputContainer.instance.moveDir = new Vector2(-1f, 0f);
+                    //        break;
 
-                        case "l":
-                            playerController.SetHorizontalAxis(0.0f);
-                            break;
+                    //    case "R":
+                    //    case "r":
+                    //        //playerController.SetHorizontalAxis(1.0f);
+                    //        InputContainer.instance.moveDir = new Vector2(-1f, 0f);
+                    //        break;
 
-                        case "R":
-                            playerController.SetHorizontalAxis(1.0f);
-                            break;
+                    //    case "Q":
+                    //    case "q":
+                    //        InputContainer.instance.cancel.down = true;
+                    //        break;
 
-                        case "r":
-                            playerController.SetHorizontalAxis(0.0f);
-                            break;
-
-                        default:
-                            Debug.Log("Unknown command: " + cmd);
-                            break;
-                    }
+                    //    default:
+                    //        Debug.Log("Unknown command: " + cmd);
+                    //        break;
+                    //}
 
                 }
             }

@@ -7,8 +7,8 @@ public class GameplayManager : MonoBehaviour
 {
     [SerializeField]private bool GameRunning = false;
 
-    [SerializeField] private string EnterButton = "Submit";
-    [SerializeField] private string QuitButton = "Cancel";
+    //[SerializeField] private string EnterButton = "Submit";
+    //[SerializeField] private string QuitButton = "Cancel";
 
     [SerializeField] private GameObject TitleScreen;
     [SerializeField] private GameObject GameOverScreen;
@@ -37,7 +37,7 @@ public class GameplayManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown(QuitButton))
+        if (InputContainer.instance.cancel.pressed)
         {
             if (GameRunning)
             {
@@ -64,7 +64,7 @@ public class GameplayManager : MonoBehaviour
             return;
         }
 
-        if(Input.GetButtonDown(EnterButton))
+        if(InputContainer.instance.confirm.pressed)
         {
             if (currentState == GameState.Paused)
             {
@@ -75,7 +75,7 @@ public class GameplayManager : MonoBehaviour
             else
             {
                 // Start new game
-                SceneManager.LoadSceneAsync(GameScene, LoadSceneMode.Additive);
+                SceneLoader.Instance.LoadNewScene(GameScene);
                 currentState = GameState.InGame;
                 SetGameState();
             }
@@ -101,7 +101,7 @@ public class GameplayManager : MonoBehaviour
         switch(currentState)
         {
             case GameState.Title:
-                SceneManager.UnloadSceneAsync(GameScene);
+                SceneLoader.Instance.UnloadOldScene(GameScene);
                 GameRunning = false;
                 TitleScreen.SetActive(true);
                 GameOverScreen.SetActive(false);
@@ -114,7 +114,7 @@ public class GameplayManager : MonoBehaviour
                 Debug.Log("Game is starting!");
                 break;
             case GameState.GameOver:
-                SceneManager.UnloadSceneAsync(GameScene);
+                SceneLoader.Instance.UnloadOldScene(GameScene);
                 GameRunning = false;
                 TitleScreen.SetActive(false);
                 GameOverScreen.SetActive(true);
