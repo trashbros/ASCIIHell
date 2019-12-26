@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private float m_horizontal = 0.0f;
     private float m_vertical = 0.0f;
 
+
     protected void Start()
     {
         // Get the components attached to your character. Animator commented out for still sprite testing
@@ -98,5 +99,10 @@ public class PlayerController : MonoBehaviour
         {
             return m_vertical;
         }
+    }
+
+    private void OnParticleCollision(GameObject other)
+    {
+        CustomEvents.EventUtil.DispatchEvent(CustomEventList.PLAYER_DIED);
     }
 }
