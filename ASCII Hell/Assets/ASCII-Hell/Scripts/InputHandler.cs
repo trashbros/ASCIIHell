@@ -14,7 +14,7 @@ public class InputHandler : MonoBehaviour
     [SerializeField] private string downButtonUDP = "dD";
     [SerializeField] private string leftButtonUDP = "lL";
     [SerializeField] private string rightButtonUDP = "rR";
-    [SerializeField] private string fireButtonUDP = " ";
+    [SerializeField] private string fireButtonUDP = "fF";
 
     [SerializeField] private string confirmButton = "Submit";
     [SerializeField] private string cancelButton = "Cancel";
@@ -25,6 +25,8 @@ public class InputHandler : MonoBehaviour
     //[Range(0, 1)]
     //public float analogueDeadzone = 0.05f;
 
+    private int udpRecievedFrame;
+
     void Awake()
     {
         InputContainer.instance = new InputContainer();
@@ -32,9 +34,40 @@ public class InputHandler : MonoBehaviour
 
     public void SetInputs(string cmd)
     {
-        InputContainer.instance.moveDir = Vector2.zero;
+        //if (confirmButtonUDP.Contains(cmd))
+        //{
+        //    InputContainer.instance.confirm.down = true;
+        //    Debug.Log("Enter pressed");
+        //}
+
+        //if(cancelButtonUDP.Contains(cmd))
+        //{
+        //    InputContainer.instance.cancel.down = true;
+        //    Debug.Log("Exit pressed");
+        //}
+
+        //if(upButtonUDP.Contains(cmd))
+        //{
+        //    InputContainer.instance.menuUp.down = true;
+        //}
+        //else if (downButtonUDP.Contains(cmd))
+        //{
+        //    InputContainer.instance.menuDown.down = true;
+        //}
+
+
+        //if (leftButtonUDP.Contains(cmd))
+        //{
+        //    InputContainer.instance.menuLeft.down = true;
+        //}
+        //else if(rightButtonUDP.Contains(cmd))
+        //{
+        //    InputContainer.instance.menuRight.down = true;
+        //}
+
+        //InputContainer.instance.moveDir = Vector2.zero;
         //if (InputContainer.instance.moveDir.magnitude < analogueDeadzone) InputContainer.instance.moveDir = Vector2.zero;
-        InputContainer.instance.menuControl = InputContainer.instance.moveDir;
+        //InputContainer.instance.menuControl = InputContainer.instance.moveDir;
 
         //InputContainer.instance.interact.down = Input.GetButton(interactButton);
         //InputContainer.instance.run.down = Input.GetButton(sprintButton);
@@ -58,11 +91,13 @@ public class InputHandler : MonoBehaviour
         if (InputContainer.instance.confirm.down || InputContainer.instance.cancel.down || InputContainer.instance.start.down
             || InputContainer.instance.select.down || InputContainer.instance.interact.down || InputContainer.instance.run.down || InputContainer.instance.menuOpen.down) InputContainer.instance.anyButton = true;
         else InputContainer.instance.anyButton = false;
+        udpRecievedFrame = TimescaleManager.Instance.trueFrameCount;
     }
     void Update()
     {
         if(usingUDP)
         {
+            if (udpRecievedFrame != TimescaleManager.Instance.trueFrameCount) { SetInputs("*"); }
             return;
         }
 

@@ -60,7 +60,7 @@ public class UdpController : MonoBehaviour
                     string cmd = Encoding.ASCII.GetString(datagram);
 
                     inputController.SetInputs(cmd);
-                    Debug.Log("Got input from udp: " + cmd);
+                    //Debug.Log("Got input from udp: " + cmd);
 
                     //switch (cmd)
                     //{

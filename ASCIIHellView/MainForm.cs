@@ -118,37 +118,45 @@ namespace ASCIIHellView
 
         private void TextAscii_KeyUp(object sender, KeyEventArgs e)
         {
-            byte[] datagram = new byte[0];
+            //byte[] datagram = new byte[0];
 
-            if (e.KeyCode == Keys.Up || e.KeyCode == Keys.W)
-            {
-                datagram = Encoding.ASCII.GetBytes("u");
-            }
-            else if (e.KeyCode == Keys.Down || e.KeyCode == Keys.S)
-            {
-                datagram = Encoding.ASCII.GetBytes("d");
-            }
-            else if (e.KeyCode == Keys.Left || e.KeyCode == Keys.A)
-            {
-                datagram = Encoding.ASCII.GetBytes("l");
-            }
-            else if (e.KeyCode == Keys.Right || e.KeyCode == Keys.D)
-            {
-                datagram = Encoding.ASCII.GetBytes("r");
-            }
+            //if (e.KeyCode == Keys.Up || e.KeyCode == Keys.W)
+            //{
+            //    datagram = Encoding.ASCII.GetBytes("u");
+            //}
+            //else if (e.KeyCode == Keys.Down || e.KeyCode == Keys.S)
+            //{
+            //    datagram = Encoding.ASCII.GetBytes("d");
+            //}
+            //else if (e.KeyCode == Keys.Left || e.KeyCode == Keys.A)
+            //{
+            //    datagram = Encoding.ASCII.GetBytes("l");
+            //}
+            //else if (e.KeyCode == Keys.Right || e.KeyCode == Keys.D)
+            //{
+            //    datagram = Encoding.ASCII.GetBytes("r");
+            //}
+            //else if (e.KeyCode == Keys.E)
+            //{
+            //    datagram = Encoding.ASCII.GetBytes("e");
+            //}
+            //else if (e.KeyCode == Keys.Q)
+            //{
+            //    datagram = Encoding.ASCII.GetBytes("q");
+            //}
 
-            if (datagram.Length > 0)
-            {
-                UdpClient udpSender = new UdpClient("127.0.0.1", 65432);
-                try
-                {
-                    udpSender.Send(datagram, datagram.Length);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
-                }
-            }
+            //if (datagram.Length > 0)
+            //{
+            //    UdpClient udpSender = new UdpClient("127.0.0.1", 65432);
+            //    try
+            //    {
+            //        udpSender.Send(datagram, datagram.Length);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Console.WriteLine(ex);
+            //    }
+            //}
 
             e.Handled = true;
         }

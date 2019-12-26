@@ -108,20 +108,20 @@ public class PlayerController : MonoBehaviour
 
         Vector2 moveDir = new Vector2(0, 0);
 
-        if (InputContainer.instance.menuRight.pressed)
+        if (InputContainer.instance.menuRight.down || InputContainer.instance.menuRight.pressed)
         {
             moveDir.x = 1;
         }
-        else if(InputContainer.instance.menuLeft.pressed)
+        else if(InputContainer.instance.menuLeft.down || InputContainer.instance.menuLeft.pressed)
         {
             moveDir.x = -1;
         }
 
-        if (InputContainer.instance.menuUp.pressed)
+        if (InputContainer.instance.menuUp.down || InputContainer.instance.menuUp.pressed)
         {
             moveDir.y = 1;
         }
-        else if (InputContainer.instance.menuDown.pressed)
+        else if (InputContainer.instance.menuDown.down || InputContainer.instance.menuDown.pressed)
         {
             moveDir.y = -1;
         }
