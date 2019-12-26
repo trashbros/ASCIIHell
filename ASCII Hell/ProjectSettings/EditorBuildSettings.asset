@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/ASCII-Hell/Scenes/SampleScene.unity
+    guid: 4e0be7561106e4844865cb5aefb5bb94
+  - enabled: 1
+    path: Assets/ASCII-Hell/Scenes/GameScene.unity
+    guid: 92c0c83440c94fc4aa583cc99f7cbf55
   m_configObjects: {}

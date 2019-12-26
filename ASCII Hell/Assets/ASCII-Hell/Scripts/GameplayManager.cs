@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameplayManager : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class GameplayManager : MonoBehaviour
 
     [SerializeField] private GameObject TitleScreen;
     [SerializeField] private GameObject GameOverScreen;
+    [SerializeField] private GameObject PauseScreen;
+
+    [SerializeField] private string GameScene = "GameScene";
 
     [SerializeField] GameState currentState = GameState.Title;
 
@@ -71,6 +75,7 @@ public class GameplayManager : MonoBehaviour
             else
             {
                 // Start new game
+                SceneManager.LoadSceneAsync(GameScene, LoadSceneMode.Additive);
                 currentState = GameState.InGame;
                 SetGameState();
             }
@@ -96,6 +101,7 @@ public class GameplayManager : MonoBehaviour
         switch(currentState)
         {
             case GameState.Title:
+                SceneManager.UnloadSceneAsync(GameScene);
                 GameRunning = false;
                 TitleScreen.SetActive(true);
                 GameOverScreen.SetActive(false);
@@ -108,6 +114,7 @@ public class GameplayManager : MonoBehaviour
                 Debug.Log("Game is starting!");
                 break;
             case GameState.GameOver:
+                SceneManager.UnloadSceneAsync(GameScene);
                 GameRunning = false;
                 TitleScreen.SetActive(false);
                 GameOverScreen.SetActive(true);
