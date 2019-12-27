@@ -37,9 +37,10 @@
             // 
             // BtnStart
             // 
-            this.BtnStart.Location = new System.Drawing.Point(3, 3);
+            this.BtnStart.Location = new System.Drawing.Point(6, 6);
+            this.BtnStart.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.BtnStart.Name = "BtnStart";
-            this.BtnStart.Size = new System.Drawing.Size(75, 23);
+            this.BtnStart.Size = new System.Drawing.Size(150, 44);
             this.BtnStart.TabIndex = 0;
             this.BtnStart.Text = "Start";
             this.BtnStart.UseVisualStyleBackColor = true;
@@ -52,16 +53,18 @@
             this.flowLayoutPanel1.Controls.Add(this.BtnStop);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1069, 29);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(2138, 56);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
             // BtnStop
             // 
             this.BtnStop.Enabled = false;
-            this.BtnStop.Location = new System.Drawing.Point(84, 3);
+            this.BtnStop.Location = new System.Drawing.Point(168, 6);
+            this.BtnStop.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.BtnStop.Name = "BtnStop";
-            this.BtnStop.Size = new System.Drawing.Size(75, 23);
+            this.BtnStop.Size = new System.Drawing.Size(150, 44);
             this.BtnStop.TabIndex = 1;
             this.BtnStop.Text = "Stop";
             this.BtnStop.UseVisualStyleBackColor = true;
@@ -71,12 +74,13 @@
             // 
             this.TextAscii.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.TextAscii.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TextAscii.Font = new System.Drawing.Font("DejaVu Sans Mono", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextAscii.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TextAscii.ForeColor = System.Drawing.Color.Silver;
-            this.TextAscii.Location = new System.Drawing.Point(0, 29);
+            this.TextAscii.Location = new System.Drawing.Point(0, 56);
+            this.TextAscii.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.TextAscii.Multiline = true;
             this.TextAscii.Name = "TextAscii";
-            this.TextAscii.Size = new System.Drawing.Size(1069, 788);
+            this.TextAscii.Size = new System.Drawing.Size(2138, 1515);
             this.TextAscii.TabIndex = 2;
             this.TextAscii.WordWrap = false;
             this.TextAscii.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextAscii_KeyDown);
@@ -85,11 +89,12 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1069, 817);
+            this.ClientSize = new System.Drawing.Size(2138, 1571);
             this.Controls.Add(this.TextAscii);
             this.Controls.Add(this.flowLayoutPanel1);
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "MainForm";
             this.Text = "ASCII Hell View";
             this.flowLayoutPanel1.ResumeLayout(false);

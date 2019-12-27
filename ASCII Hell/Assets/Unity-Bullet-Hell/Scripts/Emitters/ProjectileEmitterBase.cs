@@ -125,6 +125,7 @@ namespace BulletHell
             {
                 layerMask = LayerMask,
                 useTriggers = false,
+                useLayerMask = true
             };
 
             ProjectileManager projectileManager = ProjectileManager.Instance;
