@@ -39,6 +39,8 @@ namespace BulletHell
         public bool CullProjectilesOutsideCameraBounds = true;
         public CollisionDetectionType CollisionDetection = CollisionDetectionType.CircleCast;
 
+        public LayerMask LayerMask;
+
         //If set to -1 -- projectile pool size will be auto-calculated
         [Range(1, 1000000)]
         public int ProjectilePoolSize = 1000;
@@ -46,7 +48,7 @@ namespace BulletHell
         protected Pool<ProjectileData> Projectiles;
 
         // Collision layer
-        private int LayerMask = 1;
+        //private int LayerMask = 1;
         private RaycastHit2D[] RaycastHitBuffer = new RaycastHit2D[1];
 
         // Current active projectiles from this emitter
