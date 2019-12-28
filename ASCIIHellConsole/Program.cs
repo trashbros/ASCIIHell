@@ -12,7 +12,9 @@ namespace ASCIIHellConsole
     {
         private static void UpdateAscii(string asciiText)
         {
-            Console.Write("<" + asciiText + ">");
+            Console.SetCursorPosition(0, 0);
+            Console.CursorVisible = false;
+            Console.Write(asciiText);
         }
 
         private static async void StartReceiving()
@@ -46,6 +48,48 @@ namespace ASCIIHellConsole
                 if (keyInfo.Key == ConsoleKey.Escape)
                 {
                     break;
+                }
+                else
+                {
+                    byte[] datagram = new byte[0];
+
+                    if (keyInfo.Key == ConsoleKey.UpArrow || keyInfo.Key == ConsoleKey.W)
+                    {
+                        datagram = Encoding.ASCII.GetBytes("U");
+                    }
+                    else if (keyInfo.Key == ConsoleKey.DownArrow || keyInfo.Key == ConsoleKey.S)
+                    {
+                        datagram = Encoding.ASCII.GetBytes("D");
+                    }
+                    else if (keyInfo.Key == ConsoleKey.LeftArrow || keyInfo.Key == ConsoleKey.A)
+                    {
+                        datagram = Encoding.ASCII.GetBytes("L");
+                    }
+                    else if (keyInfo.Key == ConsoleKey.RightArrow || keyInfo.Key == ConsoleKey.D)
+                    {
+                        datagram = Encoding.ASCII.GetBytes("R");
+                    }
+                    else if (keyInfo.Key == ConsoleKey.E)
+                    {
+                        datagram = Encoding.ASCII.GetBytes("E");
+                    }
+                    else if (keyInfo.Key == ConsoleKey.Q)
+                    {
+                        datagram = Encoding.ASCII.GetBytes("Q");
+                    }
+
+                    if (datagram.Length > 0)
+                    {
+                        UdpClient udpSender = new UdpClient("127.0.0.1", 65432);
+                        try
+                        {
+                            udpSender.Send(datagram, datagram.Length);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex);
+                        }
+                    }
                 }
             }
         }
