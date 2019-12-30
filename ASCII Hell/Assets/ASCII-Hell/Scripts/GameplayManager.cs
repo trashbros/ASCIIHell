@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameplayManager : MonoBehaviour
 {
+
     [Header("Splash Screens")]
     [SerializeField] private GameObject TitleScreen;
     [SerializeField] private GameObject GameOverScreen;
@@ -108,6 +109,7 @@ public class GameplayManager : MonoBehaviour
             case GameState.Title:
                 SceneLoader.Instance.UnloadOldScene(GameScene);
                 CustomEvents.EventUtil.DispatchEvent(CustomEventList.GAME_PAUSED, new object[1] { false });
+                CustomEvents.EventUtil.DispatchEvent(CustomEventList.GAME_RUNNING, new object[1] { false });
                 GameRunning = false;
                 TitleScreen.SetActive(true);
                 GameOverScreen.SetActive(false);
@@ -115,6 +117,7 @@ public class GameplayManager : MonoBehaviour
                 break;
             case GameState.InGame:
                 GameRunning = true;
+                CustomEvents.EventUtil.DispatchEvent(CustomEventList.GAME_RUNNING, new object[1] { true });
                 TitleScreen.SetActive(false);
                 GameOverScreen.SetActive(false);
                 Debug.Log("Game is starting!");
@@ -122,6 +125,7 @@ public class GameplayManager : MonoBehaviour
             case GameState.GameOver:
                 SceneLoader.Instance.UnloadOldScene(GameScene);
                 CustomEvents.EventUtil.DispatchEvent(CustomEventList.GAME_PAUSED, new object[1] { false });
+                CustomEvents.EventUtil.DispatchEvent(CustomEventList.GAME_RUNNING, new object[1] { false });
                 GameRunning = false;
                 TitleScreen.SetActive(false);
                 GameOverScreen.SetActive(true);

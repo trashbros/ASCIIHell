@@ -18,6 +18,8 @@ public class FrameRenderer : MonoBehaviour
     [SerializeField]private UnityEngine.UI.Text m_text;
     [SerializeField]private UdpController m_udpController;
 
+    bool m_gameRunning = false;
+
     public bool writefile = true;
     public bool writeUDP = true;
 
@@ -44,6 +46,7 @@ public class FrameRenderer : MonoBehaviour
         m_Camera.targetTexture = new RenderTexture(resolutionWidth, resolutionHeight, 24);
 
         Camera.onPostRender += SendRenderedCamera;
+        CustomEvents.EventUtil.AddListener(CustomEventList.GAME_RUNNING, OnGameRunning);
     }
 
     // Update is called once per frame
@@ -69,6 +72,16 @@ public class FrameRenderer : MonoBehaviour
             char[] ascii_colors_y = " `.^:/=?ceuOgK@M".ToCharArray();
 
             StringBuilder sb = new StringBuilder();
+
+            // Current score and such value
+            if (m_gameRunning)
+            {
+                sb.Append("     Lives: " + GameplayParameters.instance.Lives.ToString());
+                sb.Append("     Boosts: " + GameplayParameters.instance.SlowDowns.ToString());
+                sb.Append("     Score: " + GameplayParameters.instance.Score.ToString());
+            }
+            sb.Append('\n');
+
             for (int y = t2d.height; y >= 0; y--)
             {
                 for (int x = 0; x < t2d.width; x++)
@@ -134,8 +147,14 @@ public class FrameRenderer : MonoBehaviour
         }
     }
 
+    private void OnGameRunning(CustomEvents.EventArgs evt)
+    {
+        m_gameRunning = (bool)evt.args.GetValue(0);
+    }
+
     private void OnApplicationQuit()
     {
         Camera.onPostRender -= SendRenderedCamera;
+        CustomEvents.EventUtil.RemoveListener(CustomEventList.GAME_RUNNING, OnGameRunning);
     }
 }
