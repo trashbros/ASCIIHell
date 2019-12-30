@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour, ICollidable
         {
             Debug.Log("Calling slow down time!");
             // Slow down game time
-            StartCoroutine(SlowDownTimer.RuneSlowDownTimer());
+            StartCoroutine(SlowDownTimer.RunSlowDownTimer());
         }
 
         // Get your up/down/left/right player input

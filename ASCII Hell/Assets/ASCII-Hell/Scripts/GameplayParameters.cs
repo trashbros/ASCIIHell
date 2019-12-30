@@ -41,6 +41,7 @@ public class GameplayParameters : MonoBehaviour
     {
         CustomEvents.EventUtil.AddListener(CustomEventList.ADD_POINTS, OnPointsAdded);
         CustomEvents.EventUtil.AddListener(CustomEventList.SLOW_TIME, OnSlowTime);
+        CustomEvents.EventUtil.AddListener(CustomEventList.PLAYER_DIED, OnPlayerDied);
 
         ResetParameters();
 
@@ -64,6 +65,11 @@ public class GameplayParameters : MonoBehaviour
         {
             SlowDowns--;
         }
+    }
+
+    private void OnPlayerDied(CustomEvents.EventArgs evt)
+    {
+        Lives -= 1;
     }
 
     #region ParameterProperties
@@ -132,4 +138,11 @@ public class GameplayParameters : MonoBehaviour
         set { m_score = value; }
     }
     #endregion
+
+    private void OnDestroy()
+    {
+        CustomEvents.EventUtil.RemoveListener(CustomEventList.PLAYER_DIED,OnPlayerDied);
+        CustomEvents.EventUtil.RemoveListener(CustomEventList.ADD_POINTS, OnPointsAdded);
+        CustomEvents.EventUtil.RemoveListener(CustomEventList.SLOW_TIME, OnSlowTime);
+    }
 }

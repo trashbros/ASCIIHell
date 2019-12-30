@@ -26,6 +26,8 @@ public class FrameRenderer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        CustomEvents.EventUtil.AddListener(CustomEventList.GAME_RUNNING, OnGameRunning);
+
         if(m_text == null)
         {
             return;
@@ -46,7 +48,6 @@ public class FrameRenderer : MonoBehaviour
         m_Camera.targetTexture = new RenderTexture(resolutionWidth, resolutionHeight, 24);
 
         Camera.onPostRender += SendRenderedCamera;
-        CustomEvents.EventUtil.AddListener(CustomEventList.GAME_RUNNING, OnGameRunning);
     }
 
     // Update is called once per frame

@@ -7,7 +7,7 @@ public static class SlowDownTimer
     
     #region Coroutines
     // The coroutine runs on its own at the same time as Update() and takes an integer indicating which scene to unload.
-    public static IEnumerator RuneSlowDownTimer()
+    public static IEnumerator RunSlowDownTimer()
     {
         if (GameplayParameters.instance.SlowDowns > 0)
         {

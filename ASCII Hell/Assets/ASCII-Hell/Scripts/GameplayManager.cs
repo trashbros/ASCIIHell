@@ -13,6 +13,8 @@ public class GameplayManager : MonoBehaviour
 
     [Header("Scene List")]
     [SerializeField] private string GameScene = "GameScene";
+    [SerializeField] private GameObject LevelPrefab;
+    private GameObject currentLevel = null;
 
     [Header("Game State Info")]
     [SerializeField] private bool GameRunning = false;
@@ -76,9 +78,10 @@ public class GameplayManager : MonoBehaviour
             else
             {
                 // Start new game
-                SceneLoader.Instance.LoadNewScene(GameScene);
+                //SceneLoader.Instance.LoadNewScene(GameScene);
                 GameplayParameters.instance.ResetParameters();
                 currentState = GameState.InGame;
+                currentLevel = Object.Instantiate<GameObject>(LevelPrefab);
                 SetGameState();
             }
         }
@@ -91,15 +94,21 @@ public class GameplayManager : MonoBehaviour
             return;
         }
 
-        GameplayParameters.instance.Lives -= 1;
-
         if (GameplayParameters.instance.Lives <= 0)
         {
             // Destroy current level
             currentState = GameState.GameOver;
             SetGameState();
         }
-        
+    }
+
+    private void ClearCurrentLevel()
+    {
+        if (currentLevel != null)
+        {
+            Object.Destroy(currentLevel);
+            currentLevel = null;
+        }
     }
 
     private void SetGameState()
@@ -107,9 +116,10 @@ public class GameplayManager : MonoBehaviour
         switch(currentState)
         {
             case GameState.Title:
-                SceneLoader.Instance.UnloadOldScene(GameScene);
                 CustomEvents.EventUtil.DispatchEvent(CustomEventList.GAME_PAUSED, new object[1] { false });
                 CustomEvents.EventUtil.DispatchEvent(CustomEventList.GAME_RUNNING, new object[1] { false });
+                //SceneLoader.Instance.UnloadOldScene(GameScene);
+                ClearCurrentLevel();
                 GameRunning = false;
                 TitleScreen.SetActive(true);
                 GameOverScreen.SetActive(false);
@@ -123,9 +133,10 @@ public class GameplayManager : MonoBehaviour
                 Debug.Log("Game is starting!");
                 break;
             case GameState.GameOver:
-                SceneLoader.Instance.UnloadOldScene(GameScene);
                 CustomEvents.EventUtil.DispatchEvent(CustomEventList.GAME_PAUSED, new object[1] { false });
                 CustomEvents.EventUtil.DispatchEvent(CustomEventList.GAME_RUNNING, new object[1] { false });
+                //SceneLoader.Instance.UnloadOldScene(GameScene);
+                ClearCurrentLevel();
                 GameRunning = false;
                 TitleScreen.SetActive(false);
                 GameOverScreen.SetActive(true);
