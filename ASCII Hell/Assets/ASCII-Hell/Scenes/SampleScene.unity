@@ -372,7 +372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_slowDownTime: 2
   m_playerSpeed: 3
-  m_enemySpeed: 3
+  m_enemySpeed: 1
   m_fireRate: 1
   m_slowDownPercent: 0.5
   m_lives: 3

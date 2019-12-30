@@ -10,12 +10,26 @@ public class EnemyController : MonoBehaviour, ICollidable
     [SerializeField] private bool m_gamePaused = false;
     [SerializeField] private bool m_gameSlowed = false;
 
+    [SerializeField] private EnemyPathStep[] enemyPathSteps;
+
+    float m_timeSinceDirectionChange = 0f;
+    //Vector2 m_MoveDir;
+    int m_CurrentPathStep = 0;
+    
+
     Rigidbody2D m_rigidbody2d;
 
     // Start is called before the first frame update
     void Start()
     {
         m_rigidbody2d = GetComponent<Rigidbody2D>();
+
+        if(enemyPathSteps == null)
+        {
+            enemyPathSteps = new EnemyPathStep[1];
+            enemyPathSteps[0].MoveDirection = Vector2.zero;
+            enemyPathSteps[0].TimeDuration = 50f;
+        }
 
         CustomEvents.EventUtil.AddListener(CustomEventList.PARAMETER_CHANGE, OnParameterChange);
         CustomEvents.EventUtil.AddListener(CustomEventList.GAME_PAUSED, OnGamePause);
@@ -30,7 +44,7 @@ public class EnemyController : MonoBehaviour, ICollidable
             return;
         }
 
-        Vector2 move = GetMovement();
+        Vector2 move = GetMovement(m_rigidbody2d.position);
 
         // Get your current position
         Vector2 position = m_rigidbody2d.position;
@@ -42,9 +56,23 @@ public class EnemyController : MonoBehaviour, ICollidable
         m_rigidbody2d.MovePosition(position);
     }
 
-    private Vector2 GetMovement()
+    private Vector2 GetMovement(Vector2 currentPos)
     {
-        return Vector2.left;
+        m_timeSinceDirectionChange += Time.deltaTime;
+        if(m_timeSinceDirectionChange >= enemyPathSteps[m_CurrentPathStep].TimeDuration)
+        {
+            if(m_CurrentPathStep == enemyPathSteps.Length - 1)
+            {
+                m_CurrentPathStep = 0;
+            }
+            else
+            {
+                m_CurrentPathStep++;
+            }
+
+            m_timeSinceDirectionChange = 0f;
+        }
+        return enemyPathSteps[m_CurrentPathStep].MoveDirection; ;
     }
 
     public void OnHit(GameObject collision)
