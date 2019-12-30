@@ -77,6 +77,7 @@ namespace BulletHell
             m_speedSlowPercent = GameplayParameters.instance.SlowDownPercent;
 
             CustomEvents.EventUtil.AddListener(CustomEventList.PARAMETER_CHANGE, OnParameterChange);
+            CustomEvents.EventUtil.AddListener(CustomEventList.SLOW_TIME, OnSlowTime);
         }
 
         public void Initialize(int size)

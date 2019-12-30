@@ -10,9 +10,12 @@ public static class SlowDownTimer
     {
         CustomEvents.EventUtil.DispatchEvent(CustomEventList.SLOW_TIME, new object[1] { true });
 
+        Debug.Log("Time is slowed!");
+
         yield return new WaitForSeconds(GameplayParameters.instance.SlowDownTime);
 
         CustomEvents.EventUtil.DispatchEvent(CustomEventList.SLOW_TIME, new object[1] { false });
+        Debug.Log("Time is back to normal!");
     }
     #endregion
 }

@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour, ICollidable
 
     // Defined by the DialogueUI script while dialogue is running
     [SerializeField] private bool m_gamePaused = false;
+    [SerializeField] private bool m_gameSlowed = false;
 
 
     protected void Start()
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour, ICollidable
 
         CustomEvents.EventUtil.AddListener(CustomEventList.PARAMETER_CHANGE, OnParameterChange);
         CustomEvents.EventUtil.AddListener(CustomEventList.GAME_PAUSED, OnGamePause);
+        CustomEvents.EventUtil.AddListener(CustomEventList.SLOW_TIME, OnSlowTime);
     }
 
     // Update is called once per frame
@@ -51,8 +53,9 @@ public class PlayerController : MonoBehaviour, ICollidable
             // Fire at opponents
         }
 
-        if(InputContainer.instance.slowTime.pressed)
+        if(!m_gameSlowed && (InputContainer.instance.slowTime.down || InputContainer.instance.slowTime.pressed))
         {
+            Debug.Log("Calling slow down time!");
             // Slow down game time
             StartCoroutine(SlowDownTimer.RuneSlowDownTimer());
         }
@@ -116,6 +119,11 @@ public class PlayerController : MonoBehaviour, ICollidable
         m_gamePaused = (bool)evt.args.GetValue(0);
     }
 
+    private void OnSlowTime(CustomEvents.EventArgs evt)
+    {
+        m_gameSlowed = (bool)evt.args.GetValue(0);
+    }
+
     private void OnParameterChange(CustomEvents.EventArgs evt)
     {
         m_speed = GameplayParameters.instance.PlayerSpeed;
@@ -126,5 +134,6 @@ public class PlayerController : MonoBehaviour, ICollidable
     {
         CustomEvents.EventUtil.RemoveListener(CustomEventList.PARAMETER_CHANGE, OnParameterChange);
         CustomEvents.EventUtil.RemoveListener(CustomEventList.GAME_PAUSED, OnGamePause);
+        CustomEvents.EventUtil.RemoveListener(CustomEventList.SLOW_TIME, OnSlowTime);
     }
 }

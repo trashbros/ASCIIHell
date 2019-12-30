@@ -373,6 +373,10 @@ MonoBehaviour:
   m_slowDownTime: 0.5
   m_playerSpeed: 3
   m_fireRate: 1
+  m_slowDownPercent: 0.1
+  m_lives: 3
+  m_slowDowns: 3
+  m_score: 0
 --- !u!1 &660452474
 GameObject:
   m_ObjectHideFlags: 0
