@@ -155,10 +155,11 @@ namespace BulletHell
                     if (Projectiles.Nodes[i].Item.TimeToLive > 0)
                     {
                         // apply acceleration
-                        Projectiles.Nodes[i].Item.Velocity *= (1 + Projectiles.Nodes[i].Item.Acceleration * tick);
+                        //Projectiles.Nodes[i].Item.Velocity *= (1 + Projectiles.Nodes[i].Item.Acceleration * tick);
 
                         // apply gravity
-                        Projectiles.Nodes[i].Item.Velocity += Projectiles.Nodes[i].Item.Gravity * tick;
+                        //Projectiles.Nodes[i].Item.Velocity += Projectiles.Nodes[i].Item.Gravity * tick;
+                        Projectiles.Nodes[i].Item.UpdateVelocity(tick);
 
                         // calculate where projectile will be at the end of this frame
                         Vector2 deltaPosition = Projectiles.Nodes[i].Item.Velocity * tick;

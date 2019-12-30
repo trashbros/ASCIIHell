@@ -97,10 +97,11 @@ namespace BulletHell
                             node.Item.TimeToLive = TimeToLive - leakedTime;
                             node.Item.Direction = Rotate(direction, rotation).normalized;
                             node.Item.Gravity = Gravity;
-                            node.Item.Velocity = Speed * Rotate(Groups[g].Direction, rotation).normalized * (UseSlowDownTime ? (m_slowTime ? m_speedSlowPercent : 1f) : 1f);
+                            node.Item.Velocity = Speed * Rotate(Groups[g].Direction, rotation).normalized;// * (UseSlowDownTime ? (m_slowTime ? m_speedSlowPercent : 1f) : 1f);
                             node.Item.Position += node.Item.Velocity * leakedTime;
                             node.Item.Color = new Color(0.6f, 0.7f, 0.6f, 1);
                             node.Item.Acceleration = Acceleration;
+                            node.Item.UseSlowDownTime = UseSlowDownTime;
                             rotation += SpokeSpacing;
                         }
                         else
@@ -110,10 +111,11 @@ namespace BulletHell
                             node.Item.TimeToLive = TimeToLive - leakedTime;
                             node.Item.Direction = Rotate(direction, rotation).normalized;
                             node.Item.Gravity = Gravity;
-                            node.Item.Velocity = Speed * Rotate(Groups[g].Direction, -rotation).normalized * (UseSlowDownTime ? (m_slowTime ? m_speedSlowPercent : 1f) : 1f);
+                            node.Item.Velocity = Speed * Rotate(Groups[g].Direction, -rotation).normalized;// * (UseSlowDownTime ? (m_slowTime ? m_speedSlowPercent : 1f) : 1f);
                             node.Item.Position += node.Item.Velocity * leakedTime;
                             node.Item.Color = new Color(0.6f, 0.7f, 0.6f, 1);
                             node.Item.Acceleration = Acceleration;
+                            node.Item.UseSlowDownTime = UseSlowDownTime;
                         }
 
                         left = !left;

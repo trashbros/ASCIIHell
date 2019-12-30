@@ -370,10 +370,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11033cd0484a5fa48914189c574a61ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_slowDownTime: 0.5
+  m_slowDownTime: 2
   m_playerSpeed: 3
+  m_enemySpeed: 3
   m_fireRate: 1
-  m_slowDownPercent: 0.1
+  m_slowDownPercent: 0.5
   m_lives: 3
   m_slowDowns: 3
   m_score: 0
