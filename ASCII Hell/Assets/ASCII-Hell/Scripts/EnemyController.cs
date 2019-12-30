@@ -10,6 +10,8 @@ public class EnemyController : MonoBehaviour, ICollidable
     [SerializeField] private bool m_gamePaused = false;
     [SerializeField] private bool m_gameSlowed = false;
 
+    //[SerializeField] private TextAsset enemyPath;
+
     [SerializeField] private EnemyPathStep[] enemyPathSteps;
 
     float m_timeSinceDirectionChange = 0f;
@@ -23,6 +25,11 @@ public class EnemyController : MonoBehaviour, ICollidable
     void Start()
     {
         m_rigidbody2d = GetComponent<Rigidbody2D>();
+
+        //if(enemyPath != null)
+        //{
+        //    enemyPathSteps = EnemyPathReader.ReadPathData(enemyPath.text);
+        //}
 
         if(enemyPathSteps == null)
         {
@@ -72,7 +79,7 @@ public class EnemyController : MonoBehaviour, ICollidable
 
             m_timeSinceDirectionChange = 0f;
         }
-        return enemyPathSteps[m_CurrentPathStep].MoveDirection; ;
+        return enemyPathSteps[m_CurrentPathStep].MoveDirection.normalized; 
     }
 
     public void OnHit(GameObject collision)

@@ -6,6 +6,10 @@ public class GameplayParameters : MonoBehaviour
 {
     public static GameplayParameters instance;
 
+    [Header("Game Info")]
+    [SerializeField] private static int StartingLives = 3;
+    [SerializeField] private static int StartingBoosts = 3;
+
     [Header("Gameplay Parameters")]
     [SerializeField] private float m_slowDownTime = 5.0f;
     [SerializeField] private float m_playerSpeed = 3.0f;
@@ -25,11 +29,20 @@ public class GameplayParameters : MonoBehaviour
         CustomEvents.EventUtil.DispatchEvent(CustomEventList.PARAMETER_CHANGE);
     }
     
+    public void ResetParameters()
+    {
+        m_lives = StartingLives;
+        m_slowDowns = StartingBoosts;
+        m_score = 0;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         CustomEvents.EventUtil.AddListener(CustomEventList.ADD_POINTS, OnPointsAdded);
+        CustomEvents.EventUtil.AddListener(CustomEventList.SLOW_TIME, OnSlowTime);
+
+        ResetParameters();
 
         instance = this;
     }
@@ -43,6 +56,14 @@ public class GameplayParameters : MonoBehaviour
     private void OnPointsAdded(CustomEvents.EventArgs evt)
     {
         Score += (int)evt.args.GetValue(0);
+    }
+
+    private void OnSlowTime(CustomEvents.EventArgs evt)
+    {
+        if((bool)evt.args.GetValue(0))
+        {
+            SlowDowns--;
+        }
     }
 
     #region ParameterProperties

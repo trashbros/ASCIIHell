@@ -20,7 +20,8 @@ ASCII Art Bullet Hell
 - E is start
 - Q is pause/quit
 ### Attack
-- None yet lol
+- F is fire
+- X is slow time
 
 
 ## How-Tos

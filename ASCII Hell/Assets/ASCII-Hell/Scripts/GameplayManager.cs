@@ -76,6 +76,7 @@ public class GameplayManager : MonoBehaviour
             {
                 // Start new game
                 SceneLoader.Instance.LoadNewScene(GameScene);
+                GameplayParameters.instance.ResetParameters();
                 currentState = GameState.InGame;
                 SetGameState();
             }
@@ -88,9 +89,15 @@ public class GameplayManager : MonoBehaviour
         {
             return;
         }
-        // Destroy current level
-        currentState = GameState.GameOver;
-        SetGameState();
+
+        GameplayParameters.instance.Lives -= 1;
+
+        if (GameplayParameters.instance.Lives <= 0)
+        {
+            // Destroy current level
+            currentState = GameState.GameOver;
+            SetGameState();
+        }
         
     }
 
