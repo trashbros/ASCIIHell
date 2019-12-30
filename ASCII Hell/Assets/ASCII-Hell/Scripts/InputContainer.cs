@@ -13,7 +13,7 @@ public class InputContainer
     public InputBool fire;
     public Vector2 menuControl;
     public Vector2 moveDir;
-    public InputBool dash;
+    public InputBool slowTime;
     public InputBool confirm;
     public InputBool cancel;
     public InputBool start;
@@ -214,7 +214,7 @@ public class InputContainer
 
     public void ResetInputs()
     {
-        fire.down = dash.down = start.down = select.down = confirm.down = cancel.down
+        fire.down = slowTime.down = start.down = select.down = confirm.down = cancel.down
             = menuUp.down = menuLeft.down = menuRight.down = menuDown.down = menuOpen.down = false;
     }
 
@@ -223,7 +223,7 @@ public class InputContainer
         // Initialize the inputs so they don't all appear to have been tapped at the start of the game
         // Structs cannot have parameterless constructors or field initializers so this is the only way
         fire.lastPress = fire.previousPress = fire.lastRelease
-            = dash.lastPress = dash.previousPress = dash.lastRelease
+            = slowTime.lastPress = slowTime.previousPress = slowTime.lastRelease
             = start.lastPress = start.previousPress = start.lastRelease
             = select.lastPress = select.previousPress = select.lastRelease
             = confirm.lastPress = confirm.previousPress = confirm.lastRelease
@@ -244,7 +244,7 @@ public class InputContainer
         return
             "Inputs:" +
             "\nInteract: " + fire +
-            "\nRun: " + dash +
+            "\nRun: " + slowTime +
             "\nMove Dir: " + moveDir.ToString() +
             "\nMenu Up: " + menuUp +
             "\nMenu Down: " + menuDown +

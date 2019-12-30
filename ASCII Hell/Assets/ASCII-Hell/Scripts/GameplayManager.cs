@@ -5,17 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class GameplayManager : MonoBehaviour
 {
-    [SerializeField]private bool GameRunning = false;
-
-    //[SerializeField] private string EnterButton = "Submit";
-    //[SerializeField] private string QuitButton = "Cancel";
-
+    [Header("Splash Screens")]
     [SerializeField] private GameObject TitleScreen;
     [SerializeField] private GameObject GameOverScreen;
     [SerializeField] private GameObject PauseScreen;
 
+    [Header("Scene List")]
     [SerializeField] private string GameScene = "GameScene";
 
+    [Header("Game State Info")]
+    [SerializeField] private bool GameRunning = false;
     [SerializeField] GameState currentState = GameState.Title;
 
     enum GameState
@@ -69,6 +68,7 @@ public class GameplayManager : MonoBehaviour
             if (currentState == GameState.Paused)
             {
                 // Unpause current game
+                CustomEvents.EventUtil.DispatchEvent(CustomEventList.GAME_PAUSED, new object[1]{ false });
                 currentState = GameState.InGame;
                 SetGameState();
             }
@@ -100,6 +100,7 @@ public class GameplayManager : MonoBehaviour
         {
             case GameState.Title:
                 SceneLoader.Instance.UnloadOldScene(GameScene);
+                CustomEvents.EventUtil.DispatchEvent(CustomEventList.GAME_PAUSED, new object[1] { false });
                 GameRunning = false;
                 TitleScreen.SetActive(true);
                 GameOverScreen.SetActive(false);
@@ -113,16 +114,18 @@ public class GameplayManager : MonoBehaviour
                 break;
             case GameState.GameOver:
                 SceneLoader.Instance.UnloadOldScene(GameScene);
+                CustomEvents.EventUtil.DispatchEvent(CustomEventList.GAME_PAUSED, new object[1] { false });
                 GameRunning = false;
                 TitleScreen.SetActive(false);
                 GameOverScreen.SetActive(true);
                 Debug.Log("Player has died");
                 break;
             case GameState.Paused:
-                GameRunning = true;
+                GameRunning = false;
                 //PauseScreen.SetActive(true);
                 TitleScreen.SetActive(false);
                 GameOverScreen.SetActive(false);
+                CustomEvents.EventUtil.DispatchEvent(CustomEventList.GAME_PAUSED, new object[1] { true });
                 Debug.Log("Game paused");
                 break;
             default:

@@ -12,6 +12,28 @@ ASCII Art Bullet Hell
 -Paths and bullet patterns generated at level initialization
 -Player character customizer
 
+## Controls
+### Movement
+- WASD
+- Arrow keys
+### Game Control
+- E is start
+- Q is pause/quit
+### Attack
+- None yet lol
+
+
+## How-Tos
+### Console Play
+- Run the ASCIHellConsole visual studio project
+- Resize window as necessary
+- Play!
+#### Local
+#### Remote
+### Viewer Play
+- Run the ASCIIHellViewer visual studio project
+- Resize window as necessary
+- Play!
 
 ## Components
 No health, your kill character gets touched and it's game over

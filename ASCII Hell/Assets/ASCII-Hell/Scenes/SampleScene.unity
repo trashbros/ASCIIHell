@@ -300,6 +300,7 @@ GameObject:
   - component: {fileID: 614363912}
   - component: {fileID: 614363911}
   - component: {fileID: 614363913}
+  - component: {fileID: 614363914}
   m_Layer: 0
   m_Name: GameplayManager
   m_TagString: Untagged
@@ -319,11 +320,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab55b84b6f5ea8745baf34469b9d45d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameRunning: 0
   TitleScreen: {fileID: 1530788895}
   GameOverScreen: {fileID: 544237477}
   PauseScreen: {fileID: 0}
   GameScene: GameScene
+  GameRunning: 0
   currentState: 0
 --- !u!4 &614363912
 Transform:
@@ -357,6 +358,21 @@ MonoBehaviour:
   scene: 0
   oldScene: 0
   loadingText: {fileID: 0}
+--- !u!114 &614363914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 614363910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11033cd0484a5fa48914189c574a61ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_slowDownTime: 0.5
+  m_playerSpeed: 3
+  m_fireRate: 1
 --- !u!1 &660452474
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,11 +578,11 @@ MonoBehaviour:
   leftButtonUDP: lL
   rightButtonUDP: rR
   fireButtonUDP: fF
-  dashButtonUDP: mM
+  slowTimeButtonUDP: mM
   confirmButton: Submit
   cancelButton: Cancel
   fireButton: Jump
-  dashButton: Fire3
+  slowTimeButton: Fire3
 --- !u!1 &1404864997
 GameObject:
   m_ObjectHideFlags: 0

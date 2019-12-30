@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour, ICollidable
     public static PlayerController instance;
 
     // Character movement speed, adjust to match your game scale
-    public float speed = 3.0f;
+    private float m_speed = 3.0f;
 
     // Rigidbody, collider, and sprite renderer, and animator attached to your 2D character. It grabs these items at scene start
     Rigidbody2D rigidbody2d;
@@ -19,10 +19,7 @@ public class PlayerController : MonoBehaviour, ICollidable
     public LayerMask interactMask;
 
     // Defined by the DialogueUI script while dialogue is running
-    public bool inDialogue = false;
-
-    private float m_horizontal = 0.0f;
-    private float m_vertical = 0.0f;
+    [SerializeField] private bool m_gamePaused = false;
 
 
     protected void Start()
@@ -32,13 +29,19 @@ public class PlayerController : MonoBehaviour, ICollidable
         //collider = GetComponent<Collider2D>();
         sprite = GetComponentInChildren<SpriteRenderer>();
         instance = this;
+
+        m_speed = GameplayParameters.instance.PlayerSpeed;
+
+
+        CustomEvents.EventUtil.AddListener(CustomEventList.PARAMETER_CHANGE, OnParameterChange);
+        CustomEvents.EventUtil.AddListener(CustomEventList.GAME_PAUSED, OnGamePause);
     }
 
     // Update is called once per frame
     protected void Update()
     {
         // Do nothing if dialogue is playing
-        if (inDialogue)
+        if (m_gamePaused)
         {
             return;
         }
@@ -48,16 +51,20 @@ public class PlayerController : MonoBehaviour, ICollidable
             // Fire at opponents
         }
 
+        if(InputContainer.instance.slowTime.pressed)
+        {
+            // Slow down game time
+            CustomEvents.EventUtil.DispatchEvent(CustomEventList.SLOW_TIME, new object[1] { true });
+        }
+
         // Get your up/down/left/right player input
         Vector2 move = GetMovement();
-
-
 
         // Get your current position
         Vector2 position = rigidbody2d.position;
 
         // Set your position as your position plus your movement vector, times your speed multiplier, and the current game timestep;
-        position = position + move * speed * Time.deltaTime;
+        position = position + move * m_speed * Time.deltaTime;
 
         // Tell the rigidbody to move to the positon specified
         rigidbody2d.MovePosition(position);
@@ -96,7 +103,28 @@ public class PlayerController : MonoBehaviour, ICollidable
 
     public void OnHit(GameObject collision)
     {
-        Debug.Log("Hit by particle");
-        CustomEvents.EventUtil.DispatchEvent(CustomEventList.PLAYER_DIED);
+        if (!m_gamePaused)
+        {
+            Debug.Log("Hit by particle");
+            CustomEvents.EventUtil.DispatchEvent(CustomEventList.PLAYER_DIED);
+        }
+    }
+
+    #region EventListeners
+    private void OnGamePause(CustomEvents.EventArgs evt)
+    {
+        m_gamePaused = (bool)evt.args.GetValue(0);
+    }
+
+    private void OnParameterChange(CustomEvents.EventArgs evt)
+    {
+        m_speed = GameplayParameters.instance.PlayerSpeed;
+    }
+    #endregion
+
+    private void OnDestroy()
+    {
+        CustomEvents.EventUtil.RemoveListener(CustomEventList.PARAMETER_CHANGE, OnParameterChange);
+        CustomEvents.EventUtil.RemoveListener(CustomEventList.GAME_PAUSED, OnGamePause);
     }
 }

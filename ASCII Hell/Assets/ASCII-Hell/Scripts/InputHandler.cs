@@ -15,12 +15,12 @@ public class InputHandler : MonoBehaviour
     [SerializeField] private string leftButtonUDP = "lL";
     [SerializeField] private string rightButtonUDP = "rR";
     [SerializeField] private string fireButtonUDP = "fF";
-    [SerializeField] private string dashButtonUDP = "mM";
+    [SerializeField] private string slowTimeButtonUDP = "xX";
 
     [SerializeField] private string confirmButton = "Submit";
     [SerializeField] private string cancelButton = "Cancel";
     [SerializeField] private string fireButton = "Jump";
-    [SerializeField] private string dashButton = "Fire3";
+    [SerializeField] private string slowTimeButton = "Fire3";
     //[SerializeField] private string menuButton = "Menu";
 
     //[Range(0, 1)]
@@ -78,7 +78,7 @@ public class InputHandler : MonoBehaviour
 
         //InputContainer.instance.menuOpen.down = Input.GetButton(menuButton);
         InputContainer.instance.fire.down = fireButtonUDP.Contains(cmd);
-        InputContainer.instance.dash.down = dashButtonUDP.Contains(cmd);
+        InputContainer.instance.slowTime.down = slowTimeButtonUDP.Contains(cmd);
 
         //converts axis input into button input for menus
         InputContainer.instance.menuUp.down = upButtonUDP.Contains(cmd);
@@ -92,7 +92,7 @@ public class InputHandler : MonoBehaviour
         InputContainer.instance.udpButtons = usingUDP;
 
         if (InputContainer.instance.confirm.down || InputContainer.instance.cancel.down || InputContainer.instance.start.down
-            || InputContainer.instance.select.down || InputContainer.instance.fire.down || InputContainer.instance.dash.down || InputContainer.instance.menuOpen.down) InputContainer.instance.anyButton = true;
+            || InputContainer.instance.select.down || InputContainer.instance.fire.down || InputContainer.instance.slowTime.down || InputContainer.instance.menuOpen.down) InputContainer.instance.anyButton = true;
         else InputContainer.instance.anyButton = false;
         udpRecievedFrame = TimescaleManager.Instance.trueFrameCount;
     }
@@ -114,7 +114,7 @@ public class InputHandler : MonoBehaviour
         InputContainer.instance.menuControl = InputContainer.instance.moveDir;
 
         InputContainer.instance.fire.down = Input.GetButton(fireButton);
-        InputContainer.instance.dash.down = Input.GetButton(dashButton);
+        InputContainer.instance.slowTime.down = Input.GetButton(slowTimeButton);
 
         InputContainer.instance.confirm.down = Input.GetButton(confirmButton);
         InputContainer.instance.cancel.down = Input.GetButton(cancelButton);
@@ -133,7 +133,7 @@ public class InputHandler : MonoBehaviour
         InputContainer.instance.udpButtons = usingUDP;
 
         if (InputContainer.instance.confirm.down || InputContainer.instance.cancel.down || InputContainer.instance.start.down
-            || InputContainer.instance.select.down || InputContainer.instance.fire.down || InputContainer.instance.dash.down || InputContainer.instance.menuOpen.down) InputContainer.instance.anyButton = true;
+            || InputContainer.instance.select.down || InputContainer.instance.fire.down || InputContainer.instance.slowTime.down || InputContainer.instance.menuOpen.down) InputContainer.instance.anyButton = true;
         else InputContainer.instance.anyButton = false;
         //Vector2 controllerInput = new Vector2(
         //    Input.GetAxisRaw("Horizontal"),

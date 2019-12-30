@@ -26,6 +26,8 @@ namespace BulletHell
         private int MaxEmitters = 100;
         private int EmitterCount = 0;
 
+        private bool m_gamePaused = false;
+
         // Singleton
         private static ProjectileManager instance = null;
         public static ProjectileManager Instance
@@ -90,6 +92,8 @@ namespace BulletHell
 
                 // Get a list of all emitters in the scene
                 RegisterEmitters();
+
+                CustomEvents.EventUtil.AddListener(CustomEventList.GAME_PAUSED, OnGamePause);
 
                 Initialized = true;
             }
@@ -275,6 +279,9 @@ namespace BulletHell
 
             // Provides a simple way to update active Emitters if removing/adding them at runtime for debugging purposes
             // You should be using AddEmitter() if you want to add Emitters at runtime
+
+            
+
 #if UNITY_EDITOR
             RefreshEmitters();
 #endif
@@ -286,6 +293,10 @@ namespace BulletHell
 
         public void UpdateEmitters()
         {
+            if (m_gamePaused)
+            {
+                return;
+            }
             //reset
             for (int n = 0; n < ProjectileTypes.Count; n++)
             {
@@ -356,7 +367,13 @@ namespace BulletHell
                 kvp.Value.ReleaseBuffers(true);
             }
         }
+
+        private void OnGamePause(CustomEvents.EventArgs evt)
+        {
+            m_gamePaused = (bool)evt.args.GetValue(0);
+        }
     }
+
 
     public class ProjectileTypeCounters
     {
@@ -364,4 +381,6 @@ namespace BulletHell
         public int TotalProjectilesAssigned;
         public int TotalGroups;
     }
+
+
 }

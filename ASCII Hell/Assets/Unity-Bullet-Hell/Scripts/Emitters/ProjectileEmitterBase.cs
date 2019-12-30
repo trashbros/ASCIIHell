@@ -25,6 +25,8 @@ namespace BulletHell
 
         [Range(0.001f, 10f)]
         public float Speed = 1;
+        protected float m_speedSlowPercent = 0.5f;
+        protected bool m_slowTime = false;
 
         [Range(-10f, 10f)]
         public float Acceleration = 0;
@@ -70,6 +72,10 @@ namespace BulletHell
             // If projectile type is not set, use default
             if (ProjectileType == null)
                 ProjectileType = ProjectileManager.Instance.GetProjectileType(0);
+
+            m_speedSlowPercent = GameplayParameters.instance.SlowDownTime;
+
+            CustomEvents.EventUtil.AddListener(CustomEventList.PARAMETER_CHANGE, OnParameterChange);
         }
 
         public void Initialize(int size)
@@ -232,6 +238,22 @@ namespace BulletHell
                     }
                 }
             }
+        }
+
+        protected void OnParameterChange(CustomEvents.EventArgs evt)
+        {
+            m_speedSlowPercent = GameplayParameters.instance.SlowDownTime;
+        }
+
+        protected void OnSlowTime(CustomEvents.EventArgs evt)
+        {
+            m_slowTime = (bool)evt.args.GetValue(0);
+        }
+
+        protected void OnDestroy()
+        {
+            CustomEvents.EventUtil.RemoveListener(CustomEventList.PARAMETER_CHANGE, OnParameterChange);
+            CustomEvents.EventUtil.RemoveListener(CustomEventList.SLOW_TIME, OnSlowTime);
         }
 
         public void ClearAllProjectiles()
