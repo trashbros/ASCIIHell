@@ -93,12 +93,25 @@ namespace ASCIIHellView
             }
             else if (e.KeyCode == Keys.E)
             {
+                // Start button
                 datagram = Encoding.ASCII.GetBytes("E");
             }
             else if (e.KeyCode == Keys.Q)
             {
+                // Quit button
                 datagram = Encoding.ASCII.GetBytes("Q");
             }
+            else if (e.KeyCode == Keys.F)
+            {
+                // Fire projectiles
+                datagram = Encoding.ASCII.GetBytes("F");
+            }
+            else if (e.KeyCode == Keys.X)
+            {
+                // Slow Down Bullets
+                datagram = Encoding.ASCII.GetBytes("X");
+            }
+        
 
             if (datagram.Length > 0)
             {

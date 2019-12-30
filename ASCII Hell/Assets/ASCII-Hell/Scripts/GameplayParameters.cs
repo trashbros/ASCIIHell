@@ -7,9 +7,15 @@ public class GameplayParameters : MonoBehaviour
     public static GameplayParameters instance;
 
     [Header("Gameplay Parameters")]
-    [SerializeField] private float m_slowDownTime = 0.5f;
+    [SerializeField] private float m_slowDownTime = 2.0f;
     [SerializeField] private float m_playerSpeed = 3.0f;
     [SerializeField] private float m_fireRate = 1.0f;
+    [SerializeField] private float m_slowDownPercent = 0.5f;
+
+    [Header("Game Info")]
+    [SerializeField] private int m_lives = 3;
+    [SerializeField] private int m_slowDowns = 3;
+    [SerializeField] private int m_score = 0;
 
 
     [ExposeInEditor(RuntimeOnly = true)]
@@ -32,12 +38,12 @@ public class GameplayParameters : MonoBehaviour
     }
 
     #region ParameterProperties
-    public float SlowDownTime
+    public float SlowDownPercent
     {
-        get { return m_slowDownTime; }
+        get { return m_slowDownPercent; }
         set
         {
-            m_slowDownTime = value;
+            m_slowDownPercent = value;
             CustomEvents.EventUtil.DispatchEvent(CustomEventList.PARAMETER_CHANGE);
         }
     }
@@ -58,6 +64,33 @@ public class GameplayParameters : MonoBehaviour
             m_fireRate = value;
             CustomEvents.EventUtil.DispatchEvent(CustomEventList.PARAMETER_CHANGE);
         }
+    }
+    public float SlowDownTime
+    {
+        get { return m_slowDownTime; }
+        set
+        {
+            m_slowDownTime = value;
+            CustomEvents.EventUtil.DispatchEvent(CustomEventList.PARAMETER_CHANGE);
+        }
+    }
+    #endregion
+
+    #region InfoProperties
+    public int Lives
+    {
+        get { return m_lives; }
+        set { m_lives = value; }
+    }
+    public int SlowDowns
+    {
+        get { return m_slowDowns; }
+        set { m_slowDowns = value; }
+    }
+    public int Score
+    {
+        get { return m_score; }
+        set { m_score = value; }
     }
     #endregion
 }

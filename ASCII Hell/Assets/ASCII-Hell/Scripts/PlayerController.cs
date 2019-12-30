@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour, ICollidable
         if(InputContainer.instance.slowTime.pressed)
         {
             // Slow down game time
-            CustomEvents.EventUtil.DispatchEvent(CustomEventList.SLOW_TIME, new object[1] { true });
+            StartCoroutine(SlowDownTimer.RuneSlowDownTimer());
         }
 
         // Get your up/down/left/right player input

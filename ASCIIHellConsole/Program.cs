@@ -71,11 +71,23 @@ namespace ASCIIHellConsole
                     }
                     else if (keyInfo.Key == ConsoleKey.E)
                     {
+                        // Start button
                         datagram = Encoding.ASCII.GetBytes("E");
                     }
                     else if (keyInfo.Key == ConsoleKey.Q)
                     {
+                        // Quit button
                         datagram = Encoding.ASCII.GetBytes("Q");
+                    }
+                    else if (keyInfo.Key == ConsoleKey.F)
+                    {
+                        // Fire projectiles
+                        datagram = Encoding.ASCII.GetBytes("F");
+                    }
+                    else if (keyInfo.Key == ConsoleKey.X)
+                    {
+                        // Slow Down Bullets
+                        datagram = Encoding.ASCII.GetBytes("X");
                     }
 
                     if (datagram.Length > 0)
