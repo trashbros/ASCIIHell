@@ -7,8 +7,9 @@ public class GameplayParameters : MonoBehaviour
     public static GameplayParameters instance;
 
     [Header("Gameplay Parameters")]
-    [SerializeField] private float m_slowDownTime = 2.0f;
+    [SerializeField] private float m_slowDownTime = 5.0f;
     [SerializeField] private float m_playerSpeed = 3.0f;
+    [SerializeField] private float m_enemySpeed = 3.0f;
     [SerializeField] private float m_fireRate = 1.0f;
     [SerializeField] private float m_slowDownPercent = 0.5f;
 
@@ -28,6 +29,8 @@ public class GameplayParameters : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        CustomEvents.EventUtil.AddListener(CustomEventList.ADD_POINTS, OnPointsAdded);
+
         instance = this;
     }
 
@@ -35,6 +38,11 @@ public class GameplayParameters : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnPointsAdded(CustomEvents.EventArgs evt)
+    {
+        Score += (int)evt.args.GetValue(0);
     }
 
     #region ParameterProperties
@@ -53,6 +61,16 @@ public class GameplayParameters : MonoBehaviour
         set
         {
             m_playerSpeed = value;
+            CustomEvents.EventUtil.DispatchEvent(CustomEventList.PARAMETER_CHANGE);
+        }
+    }
+
+    public float EnemySpeed
+    {
+        get { return m_enemySpeed; }
+        set
+        {
+            m_enemySpeed = value;
             CustomEvents.EventUtil.DispatchEvent(CustomEventList.PARAMETER_CHANGE);
         }
     }

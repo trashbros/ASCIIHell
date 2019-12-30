@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour, ICollidable
     // Rigidbody, collider, and sprite renderer, and animator attached to your 2D character. It grabs these items at scene start
     Rigidbody2D rigidbody2d;
     //Collider2D collider;
+    BulletHell.ProjectileEmitterBase shooter;
     SpriteRenderer sprite;
 
     // Define the layer your interactable colliders are on
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour, ICollidable
         rigidbody2d = GetComponentInChildren<Rigidbody2D>();
         //collider = GetComponent<Collider2D>();
         sprite = GetComponentInChildren<SpriteRenderer>();
+        shooter = GetComponentInChildren<BulletHell.ProjectileEmitterBase>();
         instance = this;
 
         m_speed = GameplayParameters.instance.PlayerSpeed;
@@ -51,6 +53,7 @@ public class PlayerController : MonoBehaviour, ICollidable
         if (InputContainer.instance.fire.down || InputContainer.instance.fire.pressed)
         {
             // Fire at opponents
+            shooter.FireProjectile(Vector2.up, 0.1f);
         }
 
         if(!m_gameSlowed && (InputContainer.instance.slowTime.down || InputContainer.instance.slowTime.pressed))

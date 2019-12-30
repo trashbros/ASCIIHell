@@ -11,4 +11,5 @@ public class CustomEventList
     public const string GAME_PAUSED = "GamePaused";
     public const string SLOW_TIME = "SlowTime";
     public const string PARAMETER_CHANGE = "ParametersChanged";
+    public const string ADD_POINTS = "AddPoints";
 }
