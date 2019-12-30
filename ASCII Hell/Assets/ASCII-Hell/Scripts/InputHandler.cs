@@ -35,6 +35,7 @@ public class InputHandler : MonoBehaviour
 
     public void SetInputs(string cmd)
     {
+        Debug.Log("Key stroke recieved is: " + cmd);
         //if (confirmButtonUDP.Contains(cmd))
         //{
         //    InputContainer.instance.confirm.down = true;

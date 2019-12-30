@@ -582,7 +582,7 @@ MonoBehaviour:
   leftButtonUDP: lL
   rightButtonUDP: rR
   fireButtonUDP: fF
-  slowTimeButtonUDP: mM
+  slowTimeButtonUDP: xX
   confirmButton: Submit
   cancelButton: Cancel
   fireButton: Jump
