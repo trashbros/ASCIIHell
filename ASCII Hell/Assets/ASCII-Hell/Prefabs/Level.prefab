@@ -233,7 +233,7 @@ MonoBehaviour:
   CollisionDetection: 1
   LayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 0
   ProjectilePoolSize: 5000
   GroupCount: 2
   SpokeCount: 10
@@ -684,7 +684,7 @@ MonoBehaviour:
   CollisionDetection: 1
   LayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 0
   ProjectilePoolSize: 5000
   GroupCount: 3
   SpokeCount: 10
@@ -1216,7 +1216,7 @@ MonoBehaviour:
   CollisionDetection: 1
   LayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 0
   ProjectilePoolSize: 5000
   GroupCount: 2
   SpokeCount: 10

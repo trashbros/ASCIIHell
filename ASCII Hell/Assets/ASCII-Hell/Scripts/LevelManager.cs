@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private float PlayerSpeed = 3;
     [SerializeField] private LevelData levelDetails;
 
-    private int m_currentWave = 0;
+    private int m_currentWave = -1;
 
     private bool m_allWavesDefeated = false;
     private bool m_bossDefeated = false;
@@ -25,6 +25,81 @@ public class LevelManager : MonoBehaviour
         Spawners = GetComponentsInChildren<Enemy>();
         PlayerObject = GetComponentInChildren<Player>();
         BossObject = GetComponentInChildren<Boss>();
+        foreach (var spawner in Spawners)
+        {
+            spawner.gameObject.SetActive(false);
+        }
+        BossObject.gameObject.SetActive(false);
+
+
+        levelDetails = new LevelData()
+        {
+            Waves = new WaveData[1]
+            {
+                new WaveData()
+                {
+                    Spawners = new SpawnerData[2]
+                    {
+                        new SpawnerData()
+                        {
+                            Health = 1,
+                            PointValue = 5,
+                            Speed = 1,
+                            StartingLocation = new Vector2(0, 2),
+                            MovementPattern = new EnemyPathStep[2]
+                                        {
+                                new EnemyPathStep()
+                                {
+                                    MoveDirection = new Vector2(-.5f, -.5f),
+                                    TimeDuration = 1
+                                },
+                                new EnemyPathStep()
+                                {
+                                    MoveDirection = new Vector2(.5f, -.5f),
+                                    TimeDuration = 1
+                                }
+                            }
+                        },
+                        new SpawnerData()
+                        {
+                            Health = 1,
+                            PointValue = 5,
+                            Speed = 1,
+                            StartingLocation = new Vector2(2, 2),
+                            MovementPattern = new EnemyPathStep[2]
+                                        {
+                                new EnemyPathStep()
+                                {
+                                    MoveDirection = new Vector2(-.5f, -.5f),
+                                    TimeDuration = 1
+                                },
+                                new EnemyPathStep()
+                                {
+                                    MoveDirection = new Vector2(.5f, -.5f),
+                                    TimeDuration = 1
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            Boss = new BossData()
+            {
+                PointValue = 1000,
+                StartingLocation = new Vector2(0, 2),
+                BossPhases = new BossPhase[2]
+                {
+                    new BossPhase()
+                    {
+                        StartingHealth = 5
+                    },
+                    new BossPhase()
+                    {
+                        StartingHealth = 3
+                    }
+                }
+            }
+        };
 
         InitializeLevel();
     }
@@ -35,7 +110,7 @@ public class LevelManager : MonoBehaviour
 
     private void InitializeLevel()
     {
-        m_currentWave = 0;
+        m_currentWave = -1;
         m_allWavesDefeated = false;
         m_bossDefeated = false;
 

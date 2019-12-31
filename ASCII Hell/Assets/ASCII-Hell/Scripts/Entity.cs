@@ -38,7 +38,7 @@ public abstract class Entity : MonoBehaviour, ICollidable
     // Update is called once per frame
     protected void Update()
     {
-        if(m_gamePaused)
+        if(m_gamePaused || !m_alive)
         {
             return;
         }
