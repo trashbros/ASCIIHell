@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -13,6 +14,11 @@ public class UdpController : MonoBehaviour
     private UdpClient udpRx;
     private IPEndPoint ipEndPoint;
 
+    private TcpListener tcpListener;
+    private TcpClient tcpClient;
+    private BinaryWriter writer;
+    private BinaryReader reader;
+
     public InputHandler inputController;
 
     // Start is called before the first frame update
@@ -23,9 +29,13 @@ public class UdpController : MonoBehaviour
             inputController = GetComponent<InputHandler>();
         }
 
+        /*
         udpTx = new UdpClient("127.0.0.1", 23456);
 
         StartReceiving();
+        */
+
+        StartListening();
     }
 
     // Update is called once per frame
@@ -35,6 +45,7 @@ public class UdpController : MonoBehaviour
 
     public void SendFrame(string frame)
     {
+        /*
         byte[] datagram = Encoding.ASCII.GetBytes(frame);
         try
         {
@@ -44,6 +55,43 @@ public class UdpController : MonoBehaviour
         {
             Debug.Log("Error sending UDP datagram");
             Debug.Log(e);
+        }
+        */
+
+        byte[] data = Encoding.ASCII.GetBytes(frame);
+        writer?.Write((byte)0x0C);
+        writer?.Write(data);
+    }
+
+    private async void StartListening()
+    {
+        tcpListener = new TcpListener(IPAddress.Any, 23456);
+        tcpListener.Start();
+        while (true)
+        {
+            tcpClient = await tcpListener.AcceptTcpClientAsync();
+            var stream = tcpClient.GetStream();
+            writer = new BinaryWriter(stream);
+            reader = new BinaryReader(stream);
+
+            byte[] buffer = new byte[1];
+
+            try
+            {
+                while (true)
+                {
+                    buffer[0] = await Task.Run<byte>(() => reader.ReadByte());
+                    string cmd = Encoding.ASCII.GetString(buffer);
+                    inputController.SetInputs(cmd);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
+
+            reader = null;
+            writer = null;
         }
     }
 
