@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -8,16 +6,27 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class UdpController : MonoBehaviour
+public class NetworkController : MonoBehaviour
 {
     private UdpClient udpTx;
     private UdpClient udpRx;
-    private IPEndPoint ipEndPoint;
+    private readonly IPEndPoint ipEndPoint;
 
     private TcpListener tcpListener;
     private TcpClient tcpClient;
     private BinaryWriter writer;
     private BinaryReader reader;
+
+    enum NetworkTransportType
+    {
+        None,
+        UDP,
+        TCP
+    }
+
+    [SerializeField]
+    private NetworkTransportType networkTransportType;
+
 
     public InputHandler inputController;
 
@@ -29,13 +38,14 @@ public class UdpController : MonoBehaviour
             inputController = GetComponent<InputHandler>();
         }
 
-        /*
-        udpTx = new UdpClient("127.0.0.1", 23456);
-
-        StartReceiving();
-        */
-
-        StartListening();
+        if (networkTransportType == NetworkTransportType.UDP)
+        {
+            StartUdp();
+        }
+        else if (networkTransportType == NetworkTransportType.TCP)
+        {
+            StartTcp();
+        }
     }
 
     // Update is called once per frame
@@ -43,9 +53,31 @@ public class UdpController : MonoBehaviour
     {
     }
 
+    private void StartUdp()
+    {
+        udpTx = new UdpClient("127.0.0.1", 23456);
+        StartReceiving();
+    }
+
+    private void StartTcp()
+    {
+        StartListening();
+    }
+
     public void SendFrame(string frame)
     {
-        /*
+        if (networkTransportType == NetworkTransportType.UDP)
+        {
+            SendFrameUdp(frame);
+        }
+        else if (networkTransportType == NetworkTransportType.TCP)
+        {
+            SendFrameTcp(frame);
+        }
+    }
+
+    private void SendFrameUdp(string frame)
+    {
         byte[] datagram = Encoding.ASCII.GetBytes(frame);
         try
         {
@@ -56,8 +88,10 @@ public class UdpController : MonoBehaviour
             Debug.Log("Error sending UDP datagram");
             Debug.Log(e);
         }
-        */
+    }
 
+    private void SendFrameTcp(string frame)
+    {
         byte[] data = Encoding.ASCII.GetBytes(frame);
         writer?.Write((byte)0x0C);
         writer?.Write(data);
@@ -108,44 +142,6 @@ public class UdpController : MonoBehaviour
                     string cmd = Encoding.ASCII.GetString(datagram);
 
                     inputController.SetInputs(cmd);
-                    //Debug.Log("Got input from udp: " + cmd);
-
-                    //switch (cmd)
-                    //{
-                    //    case "U":
-                    //    case "u":
-                    //        //playerController.SetVerticalAxis(1.0f);
-                    //        InputContainer.instance.moveDir = new Vector2(0f, 1f);
-                    //        break;
-
-                    //    case "D":
-                    //    case "d":
-                    //        //playerController.SetVerticalAxis(-1.0f);
-                    //        InputContainer.instance.moveDir = new Vector2(0f, -1f);
-                    //        break;
-
-                    //    case "L":
-                    //    case "l":
-                    //        //playerController.SetHorizontalAxis(-1.0f);
-                    //        InputContainer.instance.moveDir = new Vector2(-1f, 0f);
-                    //        break;
-
-                    //    case "R":
-                    //    case "r":
-                    //        //playerController.SetHorizontalAxis(1.0f);
-                    //        InputContainer.instance.moveDir = new Vector2(-1f, 0f);
-                    //        break;
-
-                    //    case "Q":
-                    //    case "q":
-                    //        InputContainer.instance.cancel.down = true;
-                    //        break;
-
-                    //    default:
-                    //        Debug.Log("Unknown command: " + cmd);
-                    //        break;
-                    //}
-
                 }
             }
             catch (SocketException)

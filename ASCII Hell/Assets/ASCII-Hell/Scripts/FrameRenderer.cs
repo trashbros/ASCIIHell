@@ -16,12 +16,12 @@ public class FrameRenderer : MonoBehaviour
 
     [SerializeField]private Camera m_Camera;
     [SerializeField]private UnityEngine.UI.Text m_text;
-    [SerializeField]private UdpController m_udpController;
+    [SerializeField]private NetworkController m_networkController;
 
     bool m_gameRunning = false;
 
-    public bool writefile = true;
-    public bool writeUDP = true;
+    public bool writeFile = true;
+    public bool writeNetwork = true;
 
     // Start is called before the first frame update
     void Start()
@@ -38,9 +38,9 @@ public class FrameRenderer : MonoBehaviour
             this.GetComponent<Camera>();
         }
         
-        if (m_udpController == null)
+        if (m_networkController == null)
         {
-            this.GetComponent<UdpController>();
+            this.GetComponent<NetworkController>();
         }
 
         texture2D = new Texture2D(resolutionWidth, resolutionHeight, TextureFormat.RGB24, false);
@@ -112,20 +112,20 @@ public class FrameRenderer : MonoBehaviour
             }
             m_text.text = sb.ToString();
 
-            if (writeUDP)
+            if (writeNetwork)
             {
-                m_udpController.SendFrame(sb.ToString());
+                m_networkController.SendFrame(sb.ToString());
             }
 
             // If we should write the file
-            if (writefile)
+            if (writeFile)
             {
                 string ascii_file = Application.dataPath + @"/../" + @"ascii_output.txt";
                 File.WriteAllText(ascii_file, sb.ToString());
             }
 
             // Test line to write to file
-            if (writefile)
+            if (writeFile)
             {
                 string temp = Application.dataPath + @"/../" + @"cam_output.jpg";
                 //Debug.Log("Writing camera frame to: " + temp);

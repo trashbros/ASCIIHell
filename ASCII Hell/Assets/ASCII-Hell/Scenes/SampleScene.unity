@@ -549,9 +549,9 @@ MonoBehaviour:
   resolutionHeight: 64
   m_Camera: {fileID: 856668555}
   m_text: {fileID: 660452476}
-  m_udpController: {fileID: 856668558}
-  writefile: 0
-  writeUDP: 1
+  m_networkController: {fileID: 856668558}
+  writeFile: 0
+  writeNetwork: 1
 --- !u!114 &856668558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,6 +564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cab41fa7d9d7b74499f0ce25f24a89b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  networkTransportType: 1
   inputController: {fileID: 856668559}
 --- !u!114 &856668559
 MonoBehaviour:
@@ -586,6 +587,15 @@ MonoBehaviour:
   rightButtonUDP: rR
   fireButtonUDP: fF
   slowTimeButtonUDP: xX
+  usingTcp: 0
+  confirmButtonTcp: eE
+  cancelButtonTcp: qQ
+  upButtonTcp: wW
+  downButtonTcp: sS
+  leftButtonTcp: aA
+  rightButtonTcp: dD
+  fireButtonTcp: fF
+  slowTimeButtonTcp: xX
   confirmButton: Submit
   cancelButton: Cancel
   fireButton: Jump
