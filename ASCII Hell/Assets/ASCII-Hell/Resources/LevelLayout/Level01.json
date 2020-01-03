@@ -5,9 +5,9 @@
                 {
                     "Health": 1,
                     "PointValue": 5,
-                    "Speed": 1,
-                    "StartX": 0,
-                    "StartY": 2,
+                    "Speed": 5,
+                    "StartX": -8,
+                    "StartY": 30,
                     "BulletPattern": "Bullet",
                     "MovementPattern": [
                         {
@@ -55,9 +55,9 @@
                 {
                     "Health": 1,
                     "PointValue": 5,
-                    "Speed": 1,
-                    "StartX": 2,
-                    "StartY": 2,
+                    "Speed": 5,
+                    "StartX": 8,
+                    "StartY": 30,
                     "BulletPattern": "Bullet",
                     "MovementPattern": [
                         {
@@ -108,7 +108,7 @@
     "Boss":{
         "PointValue": 1000,
         "StartX": 0,
-        "StartY": 2,
+        "StartY": 30,
         "BossPhases": [
             {
                 "StartingHealth": 5,

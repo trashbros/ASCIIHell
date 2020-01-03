@@ -137,7 +137,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 56612174}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 544237478}
@@ -375,8 +375,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_slowDownTime: 2
-  m_playerSpeed: 3
-  m_enemySpeed: 1
+  m_playerSpeed: 10
+  m_enemySpeed: 10
   m_fireRate: 1
   m_slowDownPercent: 0.5
   m_lives: 3
@@ -449,7 +449,7 @@ MonoBehaviour:
     m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
+    m_LineSpacing: 0.5
   m_Text: .
 --- !u!222 &660452477
 CanvasRenderer:
@@ -505,7 +505,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2.3987067
+  orthographic size: 32
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -548,7 +548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resolutionWidth: 96
-  resolutionHeight: 64
+  resolutionHeight: 96
   m_Camera: {fileID: 856668555}
   m_text: {fileID: 660452476}
   m_networkController: {fileID: 856668558}
@@ -610,6 +610,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5288907135154534972, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -48
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907135154534972, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907135740482579, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907135740482579, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5288907135740482583, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
         type: 3}
       propertyPath: CullProjectilesOutsideCameraBounds
@@ -620,6 +640,26 @@ PrefabInstance:
       propertyPath: BounceOffSurfaces
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5288907135740482583, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: Scale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907135740482583, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: Speed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907135860638095, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907135860638095, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 96
+      objectReference: {fileID: 0}
     - target: {fileID: 5288907136278121038, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
         type: 3}
       propertyPath: CullProjectilesOutsideCameraBounds
@@ -629,6 +669,21 @@ PrefabInstance:
         type: 3}
       propertyPath: BounceOffSurfaces
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907136278121038, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: Scale
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907136278121038, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: Speed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907136278121038, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: TimeToLive
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5288907136312955104, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
         type: 3}
@@ -690,6 +745,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level
       objectReference: {fileID: 0}
+    - target: {fileID: 5288907136312955107, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: PlayerStart.y
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907136312955107, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: PlayerSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907136350014447, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907136350014447, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5288907136350014451, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
         type: 3}
       propertyPath: CullProjectilesOutsideCameraBounds
@@ -699,12 +774,62 @@ PrefabInstance:
         type: 3}
       propertyPath: BounceOffSurfaces
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907136350014451, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: Scale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907136350014451, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: Speed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907136413893308, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907136413893308, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 48
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907136804704771, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -32
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907136804704771, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 96
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907136808119940, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907136808119940, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5288907136808119941, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
         type: 3}
       propertyPath: shooter
       value: 
       objectReference: {fileID: 1363889141}
+    - target: {fileID: 5288907137031525684, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907137031525684, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5288907137031525688, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
         type: 3}
       propertyPath: CullProjectilesOutsideCameraBounds
@@ -714,6 +839,16 @@ PrefabInstance:
         type: 3}
       propertyPath: BounceOffSurfaces
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907137031525688, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: Scale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907137031525688, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: Speed
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f86fcf755fd6de41a65cc5c704a5f6f, type: 3}
@@ -880,7 +1015,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1611841416}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 544237478}
@@ -1058,7 +1193,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2037967157}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1530788896}
@@ -1137,7 +1272,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2053201735}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1530788896}
