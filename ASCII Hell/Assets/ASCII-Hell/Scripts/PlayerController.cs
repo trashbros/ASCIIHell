@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour, ICollidable
 
     private Vector2 GetMovement()
     {
-        if (!InputContainer.instance.udpButtons)
+        if (!InputContainer.instance.networkButtons)
         {
             return InputContainer.instance.moveDir;
         }

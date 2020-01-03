@@ -5,18 +5,21 @@ using UnityEngine;
 public class Player : Entity
 {
     InputContainer inputs;
-    BulletHell.ProjectileEmitterBase shooter;
+    //[SerializeField] BulletHell.ProjectileEmitterBase shooter;
 
     protected new void Start()
         {
             base.Start();
 
-            shooter = GetComponentInChildren<BulletHell.ProjectileEmitterBase>();
+        //if (shooter == null)
+        //{
+        //    shooter = GetComponentInChildren<BulletHell.ProjectileEmitterBase>();
+        //}
         }
 
     protected new void Update()
     {
-        if (m_gamePaused)
+        if (m_gamePaused || !m_alive)
         {
             return;
         }
@@ -26,7 +29,7 @@ public class Player : Entity
         if (inputs.fire.down || inputs.fire.pressed)
         {
             // Fire at opponents
-            shooter.FireProjectile(Vector2.up, 0.1f);
+            m_emitter.FireProjectile(Vector2.up, 0.1f);
         }
 
         if(!m_gameSlowed && (inputs.slowTime.down || inputs.slowTime.pressed))
@@ -41,7 +44,7 @@ public class Player : Entity
 
     protected override Vector2 GetMovement()
     {
-        if (!inputs.udpButtons)
+        if (!inputs.networkButtons)
         {
             return inputs.moveDir;
         }
@@ -72,6 +75,7 @@ public class Player : Entity
     protected override void OnDeath()
     {
         m_alive = false;
+        SetActive(false);
         CustomEvents.EventUtil.DispatchEvent(CustomEventList.PLAYER_DIED);
     }
 

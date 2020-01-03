@@ -14,7 +14,8 @@ public class GameplayManager : MonoBehaviour
     [Header("Scene List")]
     [SerializeField] private string GameScene = "GameScene";
     [SerializeField] private GameObject LevelPrefab;
-    private GameObject currentLevel = null;
+    [SerializeField] private GameObject currentLevel;
+    [SerializeField] private LevelManager levelManager;
 
     [Header("Game State Info")]
     [SerializeField] private bool GameRunning = false;
@@ -34,6 +35,7 @@ public class GameplayManager : MonoBehaviour
         currentState = GameState.Title;
         SetGameState();
         CustomEvents.EventUtil.AddListener(CustomEventList.PLAYER_DIED, OnPlayerDied);
+        CustomEvents.EventUtil.AddListener(CustomEventList.LEVEL_COMPLETE, OnLevelComplete);
     }
 
     // Update is called once per frame
@@ -81,7 +83,8 @@ public class GameplayManager : MonoBehaviour
                 //SceneLoader.Instance.LoadNewScene(GameScene);
                 GameplayParameters.instance.ResetParameters();
                 currentState = GameState.InGame;
-                currentLevel = Object.Instantiate<GameObject>(LevelPrefab);
+                CustomEvents.EventUtil.DispatchEvent(CustomEventList.START_LEVEL);
+                //currentLevel = Object.Instantiate<GameObject>(LevelPrefab);
                 SetGameState();
             }
         }
@@ -102,6 +105,12 @@ public class GameplayManager : MonoBehaviour
         }
     }
 
+    private void OnLevelComplete(CustomEvents.EventArgs evt)
+    {
+        currentState = GameState.Title;
+        SetGameState();
+    }
+
     private void ClearCurrentLevel()
     {
         if (currentLevel != null)
@@ -118,8 +127,9 @@ public class GameplayManager : MonoBehaviour
             case GameState.Title:
                 CustomEvents.EventUtil.DispatchEvent(CustomEventList.GAME_PAUSED, new object[1] { false });
                 CustomEvents.EventUtil.DispatchEvent(CustomEventList.GAME_RUNNING, new object[1] { false });
+                CustomEvents.EventUtil.DispatchEvent(CustomEventList.STOP_LEVEL);
                 //SceneLoader.Instance.UnloadOldScene(GameScene);
-                ClearCurrentLevel();
+                //ClearCurrentLevel();
                 GameRunning = false;
                 TitleScreen.SetActive(true);
                 GameOverScreen.SetActive(false);
@@ -135,8 +145,9 @@ public class GameplayManager : MonoBehaviour
             case GameState.GameOver:
                 CustomEvents.EventUtil.DispatchEvent(CustomEventList.GAME_PAUSED, new object[1] { false });
                 CustomEvents.EventUtil.DispatchEvent(CustomEventList.GAME_RUNNING, new object[1] { false });
+                CustomEvents.EventUtil.DispatchEvent(CustomEventList.STOP_LEVEL);
                 //SceneLoader.Instance.UnloadOldScene(GameScene);
-                ClearCurrentLevel();
+                //ClearCurrentLevel();
                 GameRunning = false;
                 TitleScreen.SetActive(false);
                 GameOverScreen.SetActive(true);
@@ -158,5 +169,6 @@ public class GameplayManager : MonoBehaviour
     private void OnDestroy()
     {
         CustomEvents.EventUtil.RemoveListener(CustomEventList.PLAYER_DIED,OnPlayerDied);
+        CustomEvents.EventUtil.RemoveListener(CustomEventList.LEVEL_COMPLETE, OnLevelComplete);
     }
 }

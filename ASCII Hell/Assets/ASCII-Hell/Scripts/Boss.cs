@@ -46,7 +46,8 @@ public class Boss : Entity
         CustomEvents.EventUtil.DispatchEvent(CustomEventList.ADD_POINTS, new object[1] { m_pointValue });
         //Object.Destroy(this.gameObject);
         m_alive = false;
-        this.gameObject.SetActive(false);
+        SetActive(false);
+        //this.gameObject.SetActive(false);
     }
 
     protected override void OnParameterChange(CustomEvents.EventArgs evt)

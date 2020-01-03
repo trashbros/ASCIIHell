@@ -26,7 +26,7 @@ public class InputContainer
 
     public bool anyButton = false;
 
-    public bool udpButtons = false;
+    public bool networkButtons = false;
 
     //The player's input can be locked for a number of reasons.
     //To prevent issues like allowing the player to move again if a textbox closes while in a cutscene, there are multiple "locks."

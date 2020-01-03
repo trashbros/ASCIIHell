@@ -19,6 +19,36 @@
                             "MoveDirX": 0.5,
                             "MoveDirY": -0.5,
                             "TimeDuration": 1
+                        },
+                        {
+                            "MoveDirX": -0.5,
+                            "MoveDirY": -0.5,
+                            "TimeDuration": 1
+                        },
+                        {
+                            "MoveDirX": 0.5,
+                            "MoveDirY": -0.5,
+                            "TimeDuration": 1
+                        },
+                        {
+                            "MoveDirX": -0.5,
+                            "MoveDirY": 0.5,
+                            "TimeDuration": 1
+                        },
+                        {
+                            "MoveDirX": 0.5,
+                            "MoveDirY": 0.5,
+                            "TimeDuration": 1
+                        },
+                        {
+                            "MoveDirX": -0.5,
+                            "MoveDirY": 0.5,
+                            "TimeDuration": 1
+                        },
+                        {
+                            "MoveDirX": 0.5,
+                            "MoveDirY": 0.5,
+                            "TimeDuration": 1
                         }
                     ]
                 },
@@ -38,6 +68,36 @@
                         {
                             "MoveDirX": 0.5,
                             "MoveDirY": -0.5,
+                            "TimeDuration": 1
+                        },
+                        {
+                            "MoveDirX": -0.5,
+                            "MoveDirY": -0.5,
+                            "TimeDuration": 1
+                        },
+                        {
+                            "MoveDirX": 0.5,
+                            "MoveDirY": -0.5,
+                            "TimeDuration": 1
+                        },
+                        {
+                            "MoveDirX": -0.5,
+                            "MoveDirY": 0.5,
+                            "TimeDuration": 1
+                        },
+                        {
+                            "MoveDirX": 0.5,
+                            "MoveDirY": 0.5,
+                            "TimeDuration": 1
+                        },
+                        {
+                            "MoveDirX": -0.5,
+                            "MoveDirY": 0.5,
+                            "TimeDuration": 1
+                        },
+                        {
+                            "MoveDirX": 0.5,
+                            "MoveDirY": 0.5,
                             "TimeDuration": 1
                         }
                     ]

@@ -26,91 +26,124 @@ public class LevelManager : MonoBehaviour
         PlayerObject = GetComponentInChildren<Player>();
         BossObject = GetComponentInChildren<Boss>();
 
-        levelDetails = new LevelData(Resources.Load<TextAsset>("LevelLayout/Level01").text);
+        ClearLevel();
 
-/*
-        foreach (var spawner in Spawners)
-        {
-            spawner.gameObject.SetActive(false);
-        }
-        BossObject.gameObject.SetActive(false);
+        CustomEvents.EventUtil.AddListener(CustomEventList.STOP_LEVEL, StopLevel);
+        CustomEvents.EventUtil.AddListener(CustomEventList.START_LEVEL, StartLevel);
 
+        //levelDetails = new LevelData(Resources.Load<TextAsset>("LevelLayout/Level01").text);
 
-        levelDetails = new LevelData()
-        {
-            Waves = new WaveData[1]
-            {
-                new WaveData()
+        /*
+                foreach (var spawner in Spawners)
                 {
-                    Spawners = new SpawnerData[2]
+                    spawner.gameObject.SetActive(false);
+                }
+                BossObject.gameObject.SetActive(false);
+
+
+                levelDetails = new LevelData()
+                {
+                    Waves = new WaveData[1]
                     {
-                        new SpawnerData()
+                        new WaveData()
                         {
-                            Health = 1,
-                            PointValue = 5,
-                            Speed = 1,
-                            StartingLocation = new Vector2(0, 2),
-                            MovementPattern = new EnemyPathStep[2]
+                            Spawners = new SpawnerData[2]
+                            {
+                                new SpawnerData()
+                                {
+                                    Health = 1,
+                                    PointValue = 5,
+                                    Speed = 1,
+                                    StartingLocation = new Vector2(0, 2),
+                                    MovementPattern = new EnemyPathStep[2]
+                                                {
+                                        new EnemyPathStep()
                                         {
-                                new EnemyPathStep()
-                                {
-                                    MoveDirection = new Vector2(-.5f, -.5f),
-                                    TimeDuration = 1
-                                },
-                                new EnemyPathStep()
-                                {
-                                    MoveDirection = new Vector2(.5f, -.5f),
-                                    TimeDuration = 1
-                                }
-                            }
-                        },
-                        new SpawnerData()
-                        {
-                            Health = 1,
-                            PointValue = 5,
-                            Speed = 1,
-                            StartingLocation = new Vector2(2, 2),
-                            MovementPattern = new EnemyPathStep[2]
+                                            MoveDirection = new Vector2(-.5f, -.5f),
+                                            TimeDuration = 1
+                                        },
+                                        new EnemyPathStep()
                                         {
-                                new EnemyPathStep()
-                                {
-                                    MoveDirection = new Vector2(-.5f, -.5f),
-                                    TimeDuration = 1
+                                            MoveDirection = new Vector2(.5f, -.5f),
+                                            TimeDuration = 1
+                                        }
+                                    }
                                 },
-                                new EnemyPathStep()
+                                new SpawnerData()
                                 {
-                                    MoveDirection = new Vector2(.5f, -.5f),
-                                    TimeDuration = 1
+                                    Health = 1,
+                                    PointValue = 5,
+                                    Speed = 1,
+                                    StartingLocation = new Vector2(2, 2),
+                                    MovementPattern = new EnemyPathStep[2]
+                                                {
+                                        new EnemyPathStep()
+                                        {
+                                            MoveDirection = new Vector2(-.5f, -.5f),
+                                            TimeDuration = 1
+                                        },
+                                        new EnemyPathStep()
+                                        {
+                                            MoveDirection = new Vector2(.5f, -.5f),
+                                            TimeDuration = 1
+                                        }
+                                    }
                                 }
                             }
                         }
-                    }
-                }
-            },
-            Boss = new BossData()
-            {
-                PointValue = 1000,
-                StartingLocation = new Vector2(0, 2),
-                BossPhases = new BossPhase[2]
-                {
-                    new BossPhase()
-                    {
-                        StartingHealth = 5
                     },
-                    new BossPhase()
+                    Boss = new BossData()
                     {
-                        StartingHealth = 3
+                        PointValue = 1000,
+                        StartingLocation = new Vector2(0, 2),
+                        BossPhases = new BossPhase[2]
+                        {
+                            new BossPhase()
+                            {
+                                StartingHealth = 5
+                            },
+                            new BossPhase()
+                            {
+                                StartingHealth = 3
+                            }
+                        }
                     }
-                }
-            }
-        };
-        */
+                };
+                */
 
-        InitializeLevel();
+        //InitializeLevel();
     }
 
     private void Update()
     {
+    }
+
+    public void StartLevel(CustomEvents.EventArgs evt)
+    {
+        levelDetails = new LevelData(Resources.Load<TextAsset>("LevelLayout/Level01").text);
+
+        m_currentWave = -1;
+        m_allWavesDefeated = false;
+        m_bossDefeated = false;
+
+        PlayerObject.Initialize(PlayerStart, PlayerHealth, PlayerSpeed);
+        StartCoroutine(StartNextPhase());
+    }
+
+    public void ClearLevel()
+    {
+        foreach (var spawner in Spawners)
+        {
+            spawner.SetActive(false);
+        }
+
+        BossObject.SetActive(false);
+        PlayerObject.SetActive(false);
+    }
+
+    public void StopLevel(CustomEvents.EventArgs evt)
+    {
+        ClearLevel();
     }
 
     private void InitializeLevel()
@@ -126,13 +159,13 @@ public class LevelManager : MonoBehaviour
     private bool AllSpawnersDead()
     {
         foreach(var spawner in Spawners)
+        {
+            if( spawner.IsAlive)
             {
-                if( spawner.IsAlive)
-                {
-                    return false;
-                }
+                return false;
             }
-            return true;
+        }
+        return true;
     }
 
     #region Coroutines
@@ -159,6 +192,10 @@ public class LevelManager : MonoBehaviour
             StartCoroutine(StartNextPhase());
             yield break;
         }
+        else if(m_bossDefeated)
+        {
+            CustomEvents.EventUtil.DispatchEvent(CustomEventList.LEVEL_COMPLETE);
+        }
     }
 
     private IEnumerator StartNextPhase()
@@ -176,8 +213,9 @@ public class LevelManager : MonoBehaviour
             StartCoroutine(PopulateBoss());
             yield break;
         }
-        else
+        else if (m_bossDefeated)
         {
+            StartCoroutine(CheckPhaseDone());
             // Generate a new level data set
             yield break;
         }
@@ -202,4 +240,10 @@ public class LevelManager : MonoBehaviour
     }
 
     #endregion
+
+    private void OnDestroy()
+    {
+        CustomEvents.EventUtil.RemoveListener(CustomEventList.STOP_LEVEL, StopLevel);
+        CustomEvents.EventUtil.RemoveListener(CustomEventList.START_LEVEL, StartLevel);
+    }
 }

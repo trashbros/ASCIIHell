@@ -52,7 +52,8 @@ public class Enemy : Entity
     {
         CustomEvents.EventUtil.DispatchEvent(CustomEventList.ADD_POINTS, new object[1] { m_pointValue });
         m_alive = false;
-        this.gameObject.SetActive(false);
+        SetActive(false);
+        //this.gameObject.SetActive(false);
             //Object.Destroy(this.gameObject);
     }
 

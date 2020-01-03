@@ -13,12 +13,27 @@ public abstract class Entity : MonoBehaviour, ICollidable
     [SerializeField] protected bool UseSlowDown = false;
     [SerializeField] protected bool m_gamePaused = false;
     [SerializeField] protected bool m_gameSlowed = false;
-    
+
+    [SerializeField] protected SpriteRenderer m_sprite;
+    [SerializeField] protected BulletHell.ProjectileEmitterBase m_emitter;
+
     public bool IsAlive{ get{return m_alive;}}
 
     // Start is called before the first frame update
     protected void Start()
     {
+        if(m_sprite == null)
+        {
+            m_sprite = this.GetComponentInChildren<SpriteRenderer>();
+        }
+
+        if(m_emitter == null)
+        {
+            m_emitter = this.GetComponentInChildren<BulletHell.ProjectileEmitterBase>();
+        }
+
+        SetActive(false);
+
         CustomEvents.EventUtil.AddListener(CustomEventList.PARAMETER_CHANGE, OnParameterChange);
         CustomEvents.EventUtil.AddListener(CustomEventList.GAME_PAUSED, OnGamePause);
         CustomEvents.EventUtil.AddListener(CustomEventList.SLOW_TIME, OnSlowTime);
@@ -32,7 +47,20 @@ public abstract class Entity : MonoBehaviour, ICollidable
         this.transform.position = new Vector2(position.x, position.y);
         m_speed = speed;
         m_alive = true;
-        this.gameObject.SetActive(true);
+        SetActive(true);
+        //this.gameObject.SetActive(true);
+    }
+
+    public void SetActive(bool onOff)
+    {
+        if (m_sprite != null)
+        {
+            m_sprite.enabled = onOff;
+        }
+        if (m_emitter != null)
+        {
+            m_emitter.enabled = onOff;
+        }
     }
 
     // Update is called once per frame

@@ -37,7 +37,7 @@ public class GameplayParameters : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         CustomEvents.EventUtil.AddListener(CustomEventList.ADD_POINTS, OnPointsAdded);
         CustomEvents.EventUtil.AddListener(CustomEventList.SLOW_TIME, OnSlowTime);

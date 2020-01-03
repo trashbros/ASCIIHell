@@ -13,4 +13,7 @@ public class CustomEventList
     public const string SLOW_TIME = "SlowTime";
     public const string PARAMETER_CHANGE = "ParametersChanged";
     public const string ADD_POINTS = "AddPoints";
+    public const string LEVEL_COMPLETE = "LevelComplete";
+    public const string START_LEVEL = "StartLevel";
+    public const string STOP_LEVEL = "StopLevel";
 }
