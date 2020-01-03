@@ -141,6 +141,22 @@ public class LevelManager : MonoBehaviour
         PlayerObject.SetActive(false);
     }
 
+    public List<Vector2> GetEntityPositions()
+    {
+        List<Vector2> newPos = new List<Vector2>();
+
+        newPos.Add(new Vector2(PlayerObject.transform.position.x, PlayerObject.transform.position.y));
+
+        newPos.Add(new Vector2(BossObject.transform.position.x, BossObject.transform.position.y));
+
+        foreach (var spawner in Spawners)
+        {
+            newPos.Add(new Vector2(spawner.transform.position.x, spawner.transform.position.y));
+        }
+
+        return newPos;
+    }
+
     public void StopLevel(CustomEvents.EventArgs evt)
     {
         ClearLevel();

@@ -23,10 +23,14 @@ public class FrameRenderer : MonoBehaviour
     public bool writeFile = true;
     public bool writeNetwork = true;
 
+    private string titleText;
+
     // Start is called before the first frame update
     void Start()
     {
         CustomEvents.EventUtil.AddListener(CustomEventList.GAME_RUNNING, OnGameRunning);
+
+        titleText = Resources.Load<TextAsset>("TitleScreen").text;
 
         if(m_text == null)
         {
@@ -146,6 +150,59 @@ public class FrameRenderer : MonoBehaviour
             int a = 0;
             */
         }
+    }
+
+    private void RenderTextFrame()
+    {
+        // Current score and such value
+        if (m_gameRunning)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("     Lives: " + GameplayParameters.instance.Lives.ToString());
+            sb.Append("     Boosts: " + GameplayParameters.instance.SlowDowns.ToString());
+            sb.Append("     Score: " + GameplayParameters.instance.Score.ToString());
+
+            sb.Append("\r\n");
+
+            List<Vector2> objectPositions = GetObjectPositions();
+
+            for(int i = resolutionHeight; i >=0 ; i --)
+            {
+                for(int j = 0; j <= resolutionWidth; j++)
+                {
+                    if(objectPositions.Contains(new Vector2(j,i)))
+                    {
+                        sb.Append('.');
+                    }
+                    else
+                    {
+                        sb.Append(' ');
+                    }
+                }
+                sb.Append("\r\n");
+            }
+
+            m_text.text = sb.ToString();
+
+            if (writeNetwork)
+            {
+                m_networkController.SendFrame(sb.ToString());
+            }
+        }
+        else
+        {
+            if (writeNetwork)
+            {
+                m_networkController.SendFrame(titleText);
+            }
+        }
+        
+    }
+
+    private List<Vector2> GetObjectPositions()
+    {
+        return new List<Vector2>();
     }
 
     private void OnGameRunning(CustomEvents.EventArgs evt)

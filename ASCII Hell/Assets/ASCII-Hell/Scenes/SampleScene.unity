@@ -299,7 +299,6 @@ GameObject:
   m_Component:
   - component: {fileID: 614363912}
   - component: {fileID: 614363911}
-  - component: {fileID: 614363913}
   - component: {fileID: 614363914}
   m_Layer: 0
   m_Name: GameplayManager
@@ -327,9 +326,10 @@ MonoBehaviour:
   LevelPrefab: {fileID: 5288907136312955106, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
     type: 3}
   currentLevel: {fileID: 0}
-  levelManager: {fileID: 1399031072}
   GameRunning: 0
   currentState: 0
+  m_networkController: {fileID: 0}
+  m_levelManager: {fileID: 0}
 --- !u!4 &614363912
 Transform:
   m_ObjectHideFlags: 0
@@ -346,22 +346,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &614363913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 614363910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfb4b33def027ab42bd5940f91231379, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  loadingScreen: {fileID: 0}
-  scene: 0
-  oldScene: 0
-  loadingText: {fileID: 0}
 --- !u!114 &614363914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,6 +453,7 @@ GameObject:
   m_Component:
   - component: {fileID: 856668556}
   - component: {fileID: 856668555}
+  - component: {fileID: 856668560}
   - component: {fileID: 856668557}
   - component: {fileID: 856668558}
   - component: {fileID: 856668559}
@@ -486,7 +471,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 856668554}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 2
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
@@ -542,7 +527,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 856668554}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88898670b635c7045b33b6b9839a2894, type: 3}
   m_Name: 
@@ -603,6 +588,23 @@ MonoBehaviour:
   cancelButton: Cancel
   fireButton: Jump
   slowTimeButton: Fire3
+--- !u!114 &856668560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856668554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd31c33e2ca96f43b444028ce217e84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resolutionWidth: 96
+  resolutionHeight: 96
+  m_networkController: {fileID: 856668558}
+  m_levelManager: {fileID: 1399031072}
+  writeNetwork: 1
 --- !u!1001 &891584312
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -633,7 +635,7 @@ PrefabInstance:
     - target: {fileID: 5288907135740482583, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
         type: 3}
       propertyPath: CullProjectilesOutsideCameraBounds
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5288907135740482583, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
         type: 3}
@@ -663,7 +665,7 @@ PrefabInstance:
     - target: {fileID: 5288907136278121038, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
         type: 3}
       propertyPath: CullProjectilesOutsideCameraBounds
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5288907136278121038, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
         type: 3}
@@ -768,7 +770,7 @@ PrefabInstance:
     - target: {fileID: 5288907136350014451, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
         type: 3}
       propertyPath: CullProjectilesOutsideCameraBounds
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5288907136350014451, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
         type: 3}
@@ -833,7 +835,7 @@ PrefabInstance:
     - target: {fileID: 5288907137031525688, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
         type: 3}
       propertyPath: CullProjectilesOutsideCameraBounds
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5288907137031525688, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
         type: 3}
@@ -893,7 +895,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &1404864998
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1087,7 +1089,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1776545223
 MonoBehaviour:
   m_ObjectHideFlags: 0

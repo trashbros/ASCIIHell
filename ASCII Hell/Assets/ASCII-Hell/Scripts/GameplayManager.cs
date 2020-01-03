@@ -15,11 +15,15 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private string GameScene = "GameScene";
     [SerializeField] private GameObject LevelPrefab;
     [SerializeField] private GameObject currentLevel;
-    [SerializeField] private LevelManager levelManager;
+    //[SerializeField] private LevelManager m_levelManager;
 
     [Header("Game State Info")]
     [SerializeField] private bool GameRunning = false;
     [SerializeField] GameState currentState = GameState.Title;
+
+    [Header("Draw List")]
+    [SerializeField] private NetworkController m_networkController;
+    [SerializeField] private LevelManager m_levelManager;
 
     enum GameState
     {
