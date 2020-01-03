@@ -81,7 +81,7 @@ public class FrameRenderer : MonoBehaviour
                 sb.Append("     Boosts: " + GameplayParameters.instance.SlowDowns.ToString());
                 sb.Append("     Score: " + GameplayParameters.instance.Score.ToString());
             }
-            sb.Append('\n');
+            sb.Append("\r\n");
 
             for (int y = t2d.height; y >= 0; y--)
             {
@@ -108,7 +108,7 @@ public class FrameRenderer : MonoBehaviour
                         sb.Append(ascii_colors_y[color]);
                     }
                 }
-                sb.Append('\n');
+                sb.Append("\r\n");
             }
             m_text.text = sb.ToString();
 
