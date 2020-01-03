@@ -610,6 +610,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5288907135740482583, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: CullProjectilesOutsideCameraBounds
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907135740482583, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: BounceOffSurfaces
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907136278121038, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: CullProjectilesOutsideCameraBounds
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907136278121038, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: BounceOffSurfaces
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5288907136312955104, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -670,11 +690,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level
       objectReference: {fileID: 0}
+    - target: {fileID: 5288907136350014451, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: CullProjectilesOutsideCameraBounds
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907136350014451, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: BounceOffSurfaces
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5288907136808119941, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
         type: 3}
       propertyPath: shooter
       value: 
       objectReference: {fileID: 1363889141}
+    - target: {fileID: 5288907137031525688, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: CullProjectilesOutsideCameraBounds
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5288907137031525688, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
+        type: 3}
+      propertyPath: BounceOffSurfaces
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f86fcf755fd6de41a65cc5c704a5f6f, type: 3}
 --- !u!114 &1363889141 stripped
