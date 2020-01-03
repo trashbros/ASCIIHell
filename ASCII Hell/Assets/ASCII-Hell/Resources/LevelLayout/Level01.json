@@ -1,47 +1,62 @@
 {
-    "spawners":{
-        "first":{
-            "pattern":["bullet"],
-            "patternTime":"4",
-            "spawnerPhase":"0,180,2,0,reverse",
-            "spawnedSpeed":"2",
-            "spawnedNumber":"2",
-            "spawnedAngle":"360"
-        },
-        "second":{
-            "pattern":["three", "wait", "wait"],
-            "patternTime":"2",
-            "spawnerPhase":"0,360,10,12,circle",
-            "spawnedSpeed":"0",
-            "spawnedNumber":"4",
-            "spawnedAngle":"360",
-            "spawnerRadius":"20"
-        },
-       "three":{
-             "pattern":["bullet"],
-             "patternRepeat":"1",
-             "spawnedAngle":"30",
-             "spawnedNumber":"3",
-             "spawnedSpeed": "4"
+    "Waves":[
+        {
+            "Spawners": [
+                {
+                    "Health": 1,
+                    "PointValue": 5,
+                    "Speed": 1,
+                    "StartX": 0,
+                    "StartY": 2,
+                    "BulletPattern": "Bullet",
+                    "MovementPattern": [
+                        {
+                            "MoveDirX": -0.5,
+                            "MoveDirY": -0.5,
+                            "TimeDuration": 1
+                        },
+                        {
+                            "MoveDirX": 0.5,
+                            "MoveDirY": -0.5,
+                            "TimeDuration": 1
+                        }
+                    ]
+                },
+                {
+                    "Health": 1,
+                    "PointValue": 5,
+                    "Speed": 1,
+                    "StartX": 2,
+                    "StartY": 2,
+                    "BulletPattern": "Bullet",
+                    "MovementPattern": [
+                        {
+                            "MoveDirX": -0.5,
+                            "MoveDirY": -0.5,
+                            "TimeDuration": 1
+                        },
+                        {
+                            "MoveDirX": 0.5,
+                            "MoveDirY": -0.5,
+                            "TimeDuration": 1
+                        }
+                    ]
+                }
+            ]
         }
-    },
-    "boss":{
-        "script":[
+    ],
+    "Boss":{
+        "PointValue": 1000,
+        "StartX": 0,
+        "StartY": 2,
+        "BossPhases": [
             {
-                "health":"1",
-                "events":["spawn,first"]
+                "StartingHealth": 5,
+                "BulletPattern": "Bullet"
             },
             {
-                "health":"0.8",
-                "events":["spawn,second"]
-            },
-            {
-                "health":"0.6",
-                "events":["spawn,second"]
-            },
-            {
-                "health":"0.4",
-                "events":["spawn,first"]
+                "StartingHealth": 3,
+                "BulletPattern": "Bullet"
             }
         ]
     }

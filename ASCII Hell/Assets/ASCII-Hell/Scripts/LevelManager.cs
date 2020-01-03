@@ -25,6 +25,10 @@ public class LevelManager : MonoBehaviour
         Spawners = GetComponentsInChildren<Enemy>();
         PlayerObject = GetComponentInChildren<Player>();
         BossObject = GetComponentInChildren<Boss>();
+
+        levelDetails = new LevelData(Resources.Load<TextAsset>("LevelLayout/Level01").text);
+
+/*
         foreach (var spawner in Spawners)
         {
             spawner.gameObject.SetActive(false);
@@ -100,6 +104,7 @@ public class LevelManager : MonoBehaviour
                 }
             }
         };
+        */
 
         InitializeLevel();
     }
