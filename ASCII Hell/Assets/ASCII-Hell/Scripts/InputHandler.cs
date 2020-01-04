@@ -94,6 +94,17 @@ public class InputHandler : MonoBehaviour
                 InputContainer.instance.menuLeft.down = Regex.Unescape(leftButtonTcp).Contains(cmd);
             }
         }
+        else
+        {
+            InputContainer.instance.confirm.down = false;
+            InputContainer.instance.cancel.down = false;
+            InputContainer.instance.fire.down = false;
+            InputContainer.instance.slowTime.down = false;
+            InputContainer.instance.menuUp.down = false;
+            InputContainer.instance.menuDown.down = false;
+            InputContainer.instance.menuRight.down = false;
+            InputContainer.instance.menuLeft.down = false;
+        }
 
         //input.start.down = Input.GetButton("Start");
         //input.select.down = Input.GetButton("Select");
