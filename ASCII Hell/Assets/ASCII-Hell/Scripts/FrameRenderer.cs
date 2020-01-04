@@ -92,11 +92,13 @@ public class FrameRenderer : MonoBehaviour
 
             var lastColor = Color.gray;
 
-            for (int y = t2d.height; y >= 0; y--)
+            var pixels = t2d.GetPixels32();
+
+            for (int y = t2d.height - 1; y >= 0; y--)
             {
                 for (int x = 0; x < t2d.width; x++)
                 {
-                    var pixel = t2d.GetPixel(x, y);
+                    Color pixel = pixels[t2d.width * y + x];
 
                     int color = (int)(pixel.grayscale * (ascii_colors_r.Length - 1));
 
