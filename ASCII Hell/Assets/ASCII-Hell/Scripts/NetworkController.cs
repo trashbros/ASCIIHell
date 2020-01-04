@@ -92,9 +92,16 @@ public class NetworkController : MonoBehaviour
 
     private void SendFrameTcp(string frame)
     {
-        byte[] data = Encoding.ASCII.GetBytes(frame);
-        writer?.Write((byte)0x0C);
-        writer?.Write(data);
+        try
+        {
+            byte[] data = Encoding.ASCII.GetBytes(frame);
+            writer?.Write((byte)0x0C);
+            writer?.Write(data);
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+        }
     }
 
     private async void StartListening()
