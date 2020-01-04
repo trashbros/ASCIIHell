@@ -101,6 +101,7 @@ public class NetworkController : MonoBehaviour
         catch (Exception e)
         {
             Debug.Log(e);
+            tcpClient.Close();
         }
     }
 
