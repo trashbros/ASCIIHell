@@ -72,16 +72,25 @@ public class FrameRenderer : MonoBehaviour
             char[] ascii_colors_b = " `.,!{([t3y$qQNW".ToCharArray();
             char[] ascii_colors_y = " `.^:/=?ceuOgK@M".ToCharArray();
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder textWithColors = new StringBuilder();
+            StringBuilder textNoColors = new StringBuilder();
 
             // Current score and such value
             if (m_gameRunning)
             {
-                sb.Append("     Lives: " + GameplayParameters.instance.Lives.ToString());
-                sb.Append("     Boosts: " + GameplayParameters.instance.SlowDowns.ToString());
-                sb.Append("     Score: " + GameplayParameters.instance.Score.ToString());
+                textWithColors.Append("     Lives: " + GameplayParameters.instance.Lives.ToString());
+                textWithColors.Append("     Boosts: " + GameplayParameters.instance.SlowDowns.ToString());
+                textWithColors.Append("     Score: " + GameplayParameters.instance.Score.ToString());
+
+                textNoColors.Append("     Lives: " + GameplayParameters.instance.Lives.ToString());
+                textNoColors.Append("     Boosts: " + GameplayParameters.instance.SlowDowns.ToString());
+                textNoColors.Append("     Score: " + GameplayParameters.instance.Score.ToString());
             }
-            sb.Append("\r\n");
+
+            textWithColors.Append("\r\n");
+            textNoColors.Append("\r\n");
+
+            var lastColor = Color.gray;
 
             for (int y = t2d.height; y >= 0; y--)
             {
@@ -93,58 +102,76 @@ public class FrameRenderer : MonoBehaviour
 
                     if (pixel.r > pixel.g && pixel.r > pixel.b)
                     {
-                        sb.Append(ascii_colors_r[color]);
+                        if (lastColor != Color.red)
+                        {
+                            textWithColors.Append("\u001B[31;1m");
+                            lastColor = Color.red;
+                        }
+
+                        textWithColors.Append(ascii_colors_r[color]);
+                        textNoColors.Append(ascii_colors_r[color]);
                     }
                     else if (pixel.g > pixel.r && pixel.g > pixel.b)
                     {
-                        sb.Append(ascii_colors_g[color]);
+                        if (lastColor != Color.green)
+                        {
+                            textWithColors.Append("\u001B[32;1m");
+                            lastColor = Color.green;
+                        }
+
+                        textWithColors.Append(ascii_colors_g[color]);
+                        textNoColors.Append(ascii_colors_g[color]);
                     }
                     else if (pixel.b > pixel.r && pixel.b > pixel.g)
                     {
-                        sb.Append(ascii_colors_b[color]);
+                        if (lastColor != Color.blue)
+                        {
+                            textWithColors.Append("\u001B[34;1m");
+                            lastColor = Color.blue;
+                        }
+
+                        textWithColors.Append(ascii_colors_b[color]);
+                        textNoColors.Append(ascii_colors_b[color]);
                     }
                     else
                     {
-                        sb.Append(ascii_colors_y[color]);
+                        if (lastColor != Color.gray)
+                        {
+                            textWithColors.Append("\u001B[37;1m");
+                            lastColor = Color.gray;
+                        }
+
+                        textWithColors.Append(ascii_colors_y[color]);
+                        textNoColors.Append(ascii_colors_y[color]);
                     }
                 }
-                sb.Append("\r\n");
+                textWithColors.Append("\r\n");
+                textNoColors.Append("\r\n");
             }
-            m_text.text = sb.ToString();
+
+            m_text.text = textNoColors.ToString();
 
             if (writeNetwork)
             {
-                m_networkController.SendFrame(sb.ToString());
+                m_networkController.SendFrame(textWithColors.ToString());
             }
 
             // If we should write the file
             if (writeFile)
             {
+                string ascii_color_file = Application.dataPath + @"/../" + @"ascii_color_output.txt";
+                File.WriteAllText(ascii_color_file, textWithColors.ToString());
+
                 string ascii_file = Application.dataPath + @"/../" + @"ascii_output.txt";
-                File.WriteAllText(ascii_file, sb.ToString());
+                File.WriteAllText(ascii_file, textNoColors.ToString());
             }
 
-            // Test line to write to file
+            // If we should write the file
             if (writeFile)
             {
                 string temp = Application.dataPath + @"/../" + @"cam_output.jpg";
-                //Debug.Log("Writing camera frame to: " + temp);
                 File.WriteAllBytes(temp, texture2D.EncodeToJPG());
             }
-
-
-            /*
-            Color rgb = texture2D[camindex].GetPixel(0, 0);
-            byte r = (byte)(rgb.r * 255);
-            byte g = (byte)(rgb.g * 255);
-            byte b = (byte)(rgb.b * 255);
-
-            byte ar = pngBytes[0];
-            byte ag = pngBytes[1];
-            byte ab = pngBytes[2];
-
-            int a = 0;
-            */
         }
     }
 
