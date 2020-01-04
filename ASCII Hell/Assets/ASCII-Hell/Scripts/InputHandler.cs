@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 [System.Serializable]
@@ -14,8 +15,6 @@ public class InputHandler : MonoBehaviour
         Local
     }
 
-    [SerializeField] private bool usingUDP = false;
-    [SerializeField] private bool usingTcp = false;
     [SerializeField] private ConnectionType connectionMethod = ConnectionType.TCP;
 
     [Header("UDP Controls")]
@@ -30,7 +29,7 @@ public class InputHandler : MonoBehaviour
 
 
     [Header("TCP Controls")]
-    [SerializeField] private string confirmButtonTcp = "eE";
+    [SerializeField] private string confirmButtonTcp = "\\r";
     [SerializeField] private string cancelButtonTcp = "qQ";
     [SerializeField] private string upButtonTcp = "wW";
     [SerializeField] private string downButtonTcp = "sS";
@@ -59,42 +58,42 @@ public class InputHandler : MonoBehaviour
 
     public void SetInputs(string cmd)
     {
-        Debug.Log("Key stroke recieved is: " + cmd);
-
-        if(connectionMethod == ConnectionType.UDP)
+        if (!cmd.Equals("*"))
         {
-            InputContainer.instance.confirm.down = confirmButtonUDP.Contains(cmd);
-            InputContainer.instance.cancel.down = cancelButtonUDP.Contains(cmd);
+            Debug.Log("Key stroke recieved is: " + cmd);
 
-            //InputContainer.instance.menuOpen.down = Input.GetButton(menuButton);
-            InputContainer.instance.fire.down = fireButtonUDP.Contains(cmd);
-            InputContainer.instance.slowTime.down = slowTimeButtonUDP.Contains(cmd);
+            if(connectionMethod == ConnectionType.UDP)
+            {
+                InputContainer.instance.confirm.down = Regex.Unescape(confirmButtonUDP).Contains(cmd);
+                InputContainer.instance.cancel.down = Regex.Unescape(cancelButtonUDP).Contains(cmd);
 
-            //converts axis input into button input for menus
-            InputContainer.instance.menuUp.down = upButtonUDP.Contains(cmd);
-            InputContainer.instance.menuDown.down = downButtonUDP.Contains(cmd);
-            InputContainer.instance.menuRight.down = rightButtonUDP.Contains(cmd);
-            InputContainer.instance.menuLeft.down = leftButtonUDP.Contains(cmd);
+                //InputContainer.instance.menuOpen.down = Input.GetButton(menuButton);
+                InputContainer.instance.fire.down = Regex.Unescape(fireButtonUDP).Contains(cmd);
+                InputContainer.instance.slowTime.down = Regex.Unescape(slowTimeButtonUDP).Contains(cmd);
+
+                //converts axis input into button input for menus
+                InputContainer.instance.menuUp.down = Regex.Unescape(upButtonUDP).Contains(cmd);
+                InputContainer.instance.menuDown.down = Regex.Unescape(downButtonUDP).Contains(cmd);
+                InputContainer.instance.menuRight.down = Regex.Unescape(rightButtonUDP).Contains(cmd);
+                InputContainer.instance.menuLeft.down = Regex.Unescape(leftButtonUDP).Contains(cmd);
+            }
+
+            if(connectionMethod == ConnectionType.TCP)
+            {
+                InputContainer.instance.confirm.down = Regex.Unescape(confirmButtonTcp).Contains(cmd);
+                InputContainer.instance.cancel.down = Regex.Unescape(cancelButtonTcp).Contains(cmd);
+
+                //InputContainer.instance.menuOpen.down = Input.GetButton(menuButton);
+                InputContainer.instance.fire.down = Regex.Unescape(fireButtonTcp).Contains(cmd);
+                InputContainer.instance.slowTime.down = Regex.Unescape(slowTimeButtonTcp).Contains(cmd);
+
+                //converts axis input into button input for menus
+                InputContainer.instance.menuUp.down = Regex.Unescape(upButtonTcp).Contains(cmd);
+                InputContainer.instance.menuDown.down = Regex.Unescape(downButtonTcp).Contains(cmd);
+                InputContainer.instance.menuRight.down = Regex.Unescape(rightButtonTcp).Contains(cmd);
+                InputContainer.instance.menuLeft.down = Regex.Unescape(leftButtonTcp).Contains(cmd);
+            }
         }
-
-        if(connectionMethod == ConnectionType.TCP)
-        {
-            InputContainer.instance.confirm.down = confirmButtonTcp.Contains(cmd);
-            InputContainer.instance.cancel.down = cancelButtonTcp.Contains(cmd);
-
-            //InputContainer.instance.menuOpen.down = Input.GetButton(menuButton);
-            InputContainer.instance.fire.down = fireButtonTcp.Contains(cmd);
-            InputContainer.instance.slowTime.down = slowTimeButtonTcp.Contains(cmd);
-
-            //converts axis input into button input for menus
-            InputContainer.instance.menuUp.down = upButtonTcp.Contains(cmd);
-            InputContainer.instance.menuDown.down = downButtonTcp.Contains(cmd);
-            InputContainer.instance.menuRight.down = rightButtonTcp.Contains(cmd);
-            InputContainer.instance.menuLeft.down = leftButtonTcp.Contains(cmd);
-        }
-
-        
-
 
         //input.start.down = Input.GetButton("Start");
         //input.select.down = Input.GetButton("Select");
