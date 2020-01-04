@@ -7,12 +7,12 @@ public class GameplayManager : MonoBehaviour
 {
 
     [Header("Splash Screens")]
-    [SerializeField] private GameObject TitleScreen;
-    [SerializeField] private GameObject GameOverScreen;
-    [SerializeField] private GameObject PauseScreen;
+    public GameObject TitleScreen;
+    public GameObject GameOverScreen;
+    public GameObject PauseScreen;
 
     [Header("Scene List")]
-    [SerializeField] private string GameScene = "GameScene";
+    //[SerializeField] private string GameScene = "GameScene";
     [SerializeField] private GameObject LevelPrefab;
     [SerializeField] private GameObject currentLevel;
     [SerializeField] private LevelManager levelManager;

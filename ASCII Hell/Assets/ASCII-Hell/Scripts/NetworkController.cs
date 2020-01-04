@@ -25,7 +25,7 @@ public class NetworkController : MonoBehaviour
     }
 
     [SerializeField]
-    private NetworkTransportType networkTransportType;
+    private NetworkTransportType networkTransportType = NetworkTransportType.None;
 
 
     public InputHandler inputController;

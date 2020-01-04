@@ -30,17 +30,17 @@ public class FrameRenderer : MonoBehaviour
 
         if(m_text == null)
         {
-            return;
+            m_text = this.GetComponent<UnityEngine.UI.Text>();
         }
 
         if(m_Camera == null)
         {
-            this.GetComponent<Camera>();
+            m_Camera = this.GetComponent<Camera>();
         }
         
         if (m_networkController == null)
         {
-            this.GetComponent<NetworkController>();
+            m_networkController = this.GetComponent<NetworkController>();
         }
 
         texture2D = new Texture2D(resolutionWidth, resolutionHeight, TextureFormat.RGB24, false);

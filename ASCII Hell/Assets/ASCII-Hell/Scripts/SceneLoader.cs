@@ -10,7 +10,6 @@ using UnityEngine.UI;
         public static SceneLoader Instance;
         public Canvas loadingScreen;
         private bool loadScene = false;
-        private bool unloadScene = false;
 
         private Scene sceneLoaderScene;
         private Scene gameControllerScene;
@@ -65,7 +64,6 @@ using UnityEngine.UI;
 
         void OnSceneUnloaded(Scene scene)
         {
-            unloadScene = false;
             //loadingScreen.gameObject.SetActive(false);
         }
 

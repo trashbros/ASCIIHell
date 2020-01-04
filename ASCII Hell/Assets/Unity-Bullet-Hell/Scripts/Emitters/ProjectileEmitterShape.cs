@@ -10,8 +10,10 @@ namespace BulletHell
         public GameObject ShapeTemplate;
         private List<Vector3> TemplatePositions;
 
-        void Awake()
+        public override void Awake()
         {
+            base.Awake();
+
             if (ShapeTemplate == null)
             {
                 ShapeTemplate = Resources.Load<GameObject>(@"ShapeTemplates\CircleShape");
@@ -24,7 +26,7 @@ namespace BulletHell
             }
         }
 
-        public new void Start()
+        public override void Start()
         {
             base.Start();
         }

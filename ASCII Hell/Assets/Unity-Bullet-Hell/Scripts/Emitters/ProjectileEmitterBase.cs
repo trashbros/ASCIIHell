@@ -61,12 +61,12 @@ namespace BulletHell
         Plane[] Planes = new Plane[6];
         private Camera Camera;
 
-        public void Awake()
+        public virtual void Awake()
         {
             Camera = Camera.main;
         }
 
-        public void Start()
+        public virtual void Start()
         {
             Interval = INTERVAL;
 

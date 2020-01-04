@@ -76,7 +76,7 @@ public class TimescaleManager : Singleton<TimescaleManager>
     {
         Time.timeScale = 0;
         finalScale = 0;
-        AnimatorUpdateMode playerUpdateMode = AnimatorUpdateMode.Normal;
+        // AnimatorUpdateMode playerUpdateMode = AnimatorUpdateMode.Normal;
         //if (PlayerData.Instance.playerAnimator.updateMode == AnimatorUpdateMode.UnscaledTime) playerUpdateMode = AnimatorUpdateMode.Normal;
         //PlayerData.Instance.playerAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
         yield return new WaitForSecondsRealtime(duration);
