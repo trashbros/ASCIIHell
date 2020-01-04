@@ -323,7 +323,6 @@ MonoBehaviour:
   TitleScreen: {fileID: 1530788895}
   GameOverScreen: {fileID: 544237477}
   PauseScreen: {fileID: 0}
-  GameScene: GameScene
   LevelPrefab: {fileID: 5288907136312955106, guid: 4f86fcf755fd6de41a65cc5c704a5f6f,
     type: 3}
   currentLevel: {fileID: 0}
@@ -1314,7 +1313,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2867c2a715ea0ec4a91343bddf986cc9, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
