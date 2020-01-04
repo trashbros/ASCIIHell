@@ -580,8 +580,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad1372dd7686ab34287f77e4a0c45fa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usingUDP: 0
-  usingTcp: 1
   connectionMethod: 1
   confirmButtonUDP: eE
   cancelButtonUDP: qQ
@@ -591,7 +589,7 @@ MonoBehaviour:
   rightButtonUDP: rR
   fireButtonUDP: fF
   slowTimeButtonUDP: xX
-  confirmButtonTcp: eE
+  confirmButtonTcp: \r
   cancelButtonTcp: qQ
   upButtonTcp: wW
   downButtonTcp: sS
