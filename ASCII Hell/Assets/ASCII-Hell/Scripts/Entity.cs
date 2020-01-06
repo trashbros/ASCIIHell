@@ -96,8 +96,8 @@ public abstract class Entity : MonoBehaviour, ICollidable
         // Set your position as your position plus your movement vector, times your speed multiplier, and the current game timestep;
         var posAdd = move * m_speed * Time.deltaTime * (!UseSlowDown ? 1f : (m_gameSlowed ? m_slowDownPercent : 1f));
 
-        position += posAdd;
-        //position = position + new Vector2(Mathf.RoundToInt(posAdd.x), Mathf.RoundToInt(posAdd.y));
+        //position += posAdd;
+        position = position + new Vector2(Mathf.RoundToInt(posAdd.x), Mathf.RoundToInt(posAdd.y));
 
         this.transform.position = new Vector2(position.x, position.y);
         //StartCoroutine(SmoothMovement(position));

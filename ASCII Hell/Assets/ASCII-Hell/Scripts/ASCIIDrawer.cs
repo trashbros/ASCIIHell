@@ -8,6 +8,8 @@ public class ASCIIDrawer : MonoBehaviour
     public int resolutionWidth = 480;
     public int resolutionHeight = 640;
 
+    private string m_horizontalBorder = "";
+
     //private Texture2D texture2D;
     //private Rect rect;
 
@@ -30,6 +32,8 @@ public class ASCIIDrawer : MonoBehaviour
         CustomEvents.EventUtil.AddListener(CustomEventList.GAME_RUNNING, OnGameRunning);
 
         titleText = Resources.Load<TextAsset>("TitleScreen").text;
+
+        MakeTopBottomBorder();
 
         if (m_networkController == null)
         {
@@ -63,16 +67,18 @@ public class ASCIIDrawer : MonoBehaviour
             sb.Append("     Lives: " + GameplayParameters.instance.Lives.ToString());
             sb.Append("     Boosts: " + GameplayParameters.instance.SlowDowns.ToString());
             sb.Append("     Score: " + GameplayParameters.instance.Score.ToString());
-
             sb.Append("\r\n");
+
+            sb.Append(m_horizontalBorder);
 
             List<Vector2> objectPositions = GetObjectPositions();
 
             for (int i = resolutionHeight; i >= 0; i--)
             {
+                sb.Append('|');
                 for (int j = 0; j <= resolutionWidth; j++)
                 {
-                    if (objectPositions.Exists(o => o.x == j && o.y == i))
+                    if (objectPositions.Exists(o => o.x == (float)j && o.y == (float)i))
                     {
                         sb.Append('.');
                     }
@@ -81,8 +87,10 @@ public class ASCIIDrawer : MonoBehaviour
                         sb.Append(' ');
                     }
                 }
-                sb.Append("\r\n");
+                sb.Append("|\r\n");
             }
+
+            sb.Append(m_horizontalBorder);
 
             if (writeNetwork)
             {
@@ -97,6 +105,20 @@ public class ASCIIDrawer : MonoBehaviour
             }
         }
 
+    }
+
+    [ExposeInEditor(RuntimeOnly = true)]
+    public void MakeTopBottomBorder()
+    {
+        m_horizontalBorder = "";
+        m_horizontalBorder += ".";
+
+        for (int j = 0; j <= resolutionWidth; j++)
+        {
+            m_horizontalBorder += "-";
+        }
+
+        m_horizontalBorder+= ".\r\n";
     }
 
     private List<Vector2> GetObjectPositions()
