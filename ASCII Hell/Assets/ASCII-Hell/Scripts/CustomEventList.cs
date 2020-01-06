@@ -16,4 +16,5 @@ public class CustomEventList
     public const string LEVEL_COMPLETE = "LevelComplete";
     public const string START_LEVEL = "StartLevel";
     public const string STOP_LEVEL = "StopLevel";
+    public const string PARTICLE_INFO = "ParticleInfo";
 }

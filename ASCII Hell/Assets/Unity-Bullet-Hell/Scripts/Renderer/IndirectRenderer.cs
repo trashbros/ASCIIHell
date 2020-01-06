@@ -12,6 +12,9 @@ namespace BulletHell
         private Vector4[] TransformData;
         private Vector4[] ColorData;
 
+        public Vector4[] TransformDataP { get { return TransformData; } }
+        public Vector4[] ColorDataP { get { return ColorData; } }
+
         // Projectile Details
         private Mesh Mesh;
         private Material Material;
@@ -85,6 +88,8 @@ namespace BulletHell
                 ColorBuffer.SetData(ColorData, 0, 0, activeProjectileCount);
             args[1] = (uint)activeProjectileCount;
             ArgsBuffer.SetData(args);
+
+
 
             // Instruct the GPU to draw
             Graphics.DrawMeshInstancedIndirect(Mesh, 0, Material, new Bounds(Vector3.zero, new Vector3(100.0f, 100.0f, 100.0f)), ArgsBuffer);

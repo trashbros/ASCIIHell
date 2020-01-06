@@ -20,6 +20,12 @@ public class ASCIIDrawer : MonoBehaviour
 
     bool m_gameRunning = false;
 
+    //bool m_newParticleData = false;
+    bool m_allParticleData = false;
+
+    object[] m_particleData = null;
+
+    List<Vector2> m_objectData = null;
 
     //public bool writeFile = true;
     public bool writeNetwork = true;
@@ -30,6 +36,7 @@ public class ASCIIDrawer : MonoBehaviour
     void Start()
     {
         CustomEvents.EventUtil.AddListener(CustomEventList.GAME_RUNNING, OnGameRunning);
+        CustomEvents.EventUtil.AddListener(CustomEventList.PARTICLE_INFO, OnParticleInfo);
 
         titleText = Resources.Load<TextAsset>("TitleScreen").text;
 
@@ -62,6 +69,11 @@ public class ASCIIDrawer : MonoBehaviour
         // Current score and such value
         if (m_gameRunning)
         {
+            if(!m_allParticleData || m_particleData == null)
+            {
+                return;
+            }
+
             StringBuilder sb = new StringBuilder();
 
             sb.Append("     Lives: " + GameplayParameters.instance.Lives.ToString());
@@ -71,21 +83,14 @@ public class ASCIIDrawer : MonoBehaviour
 
             sb.Append(m_horizontalBorder);
 
-            List<Vector2> objectPositions = GetObjectPositions();
+            m_objectData = GetObjectPositions();
 
             for (int i = resolutionHeight; i >= 0; i--)
             {
                 sb.Append('|');
                 for (int j = 0; j <= resolutionWidth; j++)
                 {
-                    if (objectPositions.Exists(o => o.x == (float)j && o.y == (float)i))
-                    {
-                        sb.Append('.');
-                    }
-                    else
-                    {
-                        sb.Append(' ');
-                    }
+                    sb.Append(GetLocationCharacter(j, i));
                 }
                 sb.Append("|\r\n");
             }
@@ -95,6 +100,7 @@ public class ASCIIDrawer : MonoBehaviour
             if (writeNetwork)
             {
                 m_networkController.SendFrame(sb.ToString());
+                m_particleData = null;
             }
         }
         else
@@ -105,6 +111,16 @@ public class ASCIIDrawer : MonoBehaviour
             }
         }
 
+    }
+
+    private char GetLocationCharacter(int x, int y)
+    {
+        if(m_objectData.Exists(o => o.x == (float)x && o.y == (float)y))
+        {
+            return 'X';
+        }
+        
+        return ' ';
     }
 
     [ExposeInEditor(RuntimeOnly = true)]
@@ -129,6 +145,30 @@ public class ASCIIDrawer : MonoBehaviour
     private void OnGameRunning(CustomEvents.EventArgs evt)
     {
         m_gameRunning = (bool)evt.args.GetValue(0);
+    }
+
+    private void OnParticleInfo(CustomEvents.EventArgs evt)
+    {
+        if(m_particleData == null)
+        {
+            m_particleData = new object[(int)evt.args.GetValue(0)];
+        }
+
+        m_particleData[(int)evt.args.GetValue(1)] = new object[3] { evt.args.GetValue(2),
+            evt.args.GetValue(3),
+            evt.args.GetValue(4)
+        };
+
+        bool haveData = true;
+        foreach(var pData in m_particleData)
+        {
+            if(pData == null)
+            {
+                haveData = false;
+            }
+        }
+
+        m_allParticleData = haveData;
     }
 
     private void OnApplicationQuit()

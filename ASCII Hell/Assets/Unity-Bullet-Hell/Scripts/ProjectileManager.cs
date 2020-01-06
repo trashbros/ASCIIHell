@@ -328,7 +328,14 @@ namespace BulletHell
             for (int n = 0; n < ProjectileTypes.Count; n++)
             {
                 if (ProjectileTypeCounters[ProjectileTypes[n].Index].ActiveProjectiles > 0)
+                {
                     IndirectRenderers[ProjectileTypes[n].Index].Draw(ProjectileTypeCounters[ProjectileTypes[n].Index].ActiveProjectiles);
+                    CustomEvents.EventUtil.DispatchEvent(CustomEventList.PARTICLE_INFO, new object[5] { ProjectileTypes.Count,
+                        n,
+                        ProjectileTypeCounters[ProjectileTypes[n].Index].ActiveProjectiles,
+                        IndirectRenderers[ProjectileTypes[n].Index].TransformDataP,
+                        IndirectRenderers[ProjectileTypes[n].Index].ColorDataP});
+                }
             }
         }
 
